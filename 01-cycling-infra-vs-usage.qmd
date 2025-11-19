@@ -1,0 +1,420 @@
+---
+title: "Preliminary cycling infra vs usage analysis"
+format: html
+editor: visual
+---
+
+## Introduction
+
+- Aim: examine which cycling-infrastructure metrics align best with cycling use.
+
+- Start with simple measures (total km, km per 1 000 people) -- foundation for later work on network characteristics.
+
+## Data and methods
+
+- Cycling infrastructure from OSM, `osmactive` R package.
+
+- Cycling use from [the EU Quality of Life Survey](https://ec.europa.eu/regional_policy/information-sources/maps/quality-of-life_en). 83 cities, ≈ 70,000 respondents; includes a transport question (“On a typical day, which mode(s) of transport do you use most often?”), where cycling is one of the selectable modes (up to two choices allowed), providing a simple city-level proxy for cycling use. There are previous editions.
+
+- Create exploratory scatter plots to see associations.
+
+<!-- ### Potential cycling-use datasets -->
+
+<!-- - **Eurostat: journeys to work by bicycle**   -->
+<!--   Patchy coverage, many cities missing.   -->
+<!--   https://ec.europa.eu/eurostat/databrowser/view/urb_ctran__custom_18909106/default/table -->
+
+<!-- - **Bicycle counter data (Kraus and Koch, PNAS)**   -->
+<!--   Only for cities with counters.   -->
+<!--   https://www.pnas.org/doi/10.1073/pnas.2024399118   -->
+<!--   Data: https://zenodo.org/records/4015974 -->
+
+<!-- - **Cycling mode share in 864 European cities (Sobral et al.)**   -->
+<!--   Interesting working project, modelled values.   -->
+<!--   https://www.cyclingandsociety.org/wp-content/uploads/2025/09/CyclingAndSociety2025-4-Sobral.pdf -->
+
+<!-- - **Quality of Life in European Cities survey (DG REGIO)**   -->
+<!--   83 cities, >70,000 respondents; includes question   -->
+<!--   “On a typical day, which mode(s) do you use most often? Bicycle”.   -->
+<!--   https://ec.europa.eu/regional_policy/information-sources/maps/quality-of-life_en -->
+
+<!-- *the QoL survey seems to provide the most consistent city-level cycling-use indicator across many cities. IS 83 sample enough?* -->
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse) 
+library(sf)
+library(osmdata)
+library(osmactive)
+library(ggrepel)
+library(scales)
+library(knitr)   
+```
+
+```{r}
+#| include: false
+
+# install.packages("haven")  # SPSS file
+library(haven)
+
+qol <- read_sav("data/QoL in European Cities_2023_microdata/2023_QoL in European Cities_microdata.sav")
+
+qol_factor <- qol |>
+  mutate(across(where(is.labelled), ~ as_factor(.)))
+
+qol_q5 <- qol_factor |>
+  group_by(country   = Country_sample,
+           city_name = D3_Cityrecode,
+           population = Population) |>
+  summarise(
+    bike_sample = sum(w1[Q5_1 == "Bicycle" | Q5_2 == "Bicycle"], na.rm = TRUE),
+    total_sample    = sum(w1, na.rm = TRUE),
+    bike_prop     = bike_sample / total_sample
+  ) |>
+  arrange(desc(bike_prop))
+```
+
+```{r}
+#| label: cities-qol
+#| include: false
+
+all_cities <- qol_q5 |>
+  mutate(
+    city_name = as.character(city_name),
+    country   = as.character(country)
+  ) |>
+  arrange(desc(bike_prop))
+
+```
+
+```{r}
+#| label: osm-cache-helpers
+#| include: false
+
+cache_dir <- "/media/eugeni/Extrem SSD/my-stuff/metrics-paper/data/osm_cache"
+
+dir.create(cache_dir, showWarnings = FALSE, recursive = TRUE)
+
+osm_country_path <- function(country) {
+  str_glue("{cache_dir}/osm_{country}.rds")
+}
+
+cycle_country_path <- function(country) {
+  str_glue("{cache_dir}/cycle_{country}.rds")
+}
+
+
+get_country_osm_cached <- function(country_name) {
+  path <- osm_country_path(country_name)
+
+  if (file.exists(path)) {
+    message("Reading cached OSM for ", country_name, " from ", path)
+    readRDS(path)
+  } else {
+    message("Downloading OSM for ", country_name)
+    osm <- osmactive::get_travel_network(country_name)
+    message("Saving OSM cache to ", path)
+    saveRDS(osm, path)
+    osm
+  }
+}
+
+get_country_cycle_cached <- function(country_name) {
+  path <- cycle_country_path(country_name)
+
+  if (file.exists(path)) {
+    message("Reading cached cycling network for ", country_name, " from ", path)
+    readRDS(path)
+  } else {
+    osm   <- get_country_osm_cached(country_name)
+    cycle <- osmactive::get_cycling_network(osm)
+
+    cycle <- sf::st_transform(cycle, 3857)
+    cycle$length_m <- sf::st_length(cycle)
+
+    message("Saving cycle cache to ", path)
+    saveRDS(cycle, path)
+    cycle
+  }
+}
+
+```
+
+```{r}
+#| label: city-tools
+#| include: false
+
+get_city_polygon <- function(city, country) {
+  query <- paste(city, country, sep = ", ")
+  message("  Boundary for: ", query)
+
+  poly <- tryCatch(
+    osmdata::getbb(query, format_out = "sf_polygon"),
+    error = function(e) NULL
+  )
+
+  if (inherits(poly, "sf")) {
+    return(poly)
+  }
+
+  bb <- osmdata::getbb(query)
+  if (is.null(bb)) {
+    warning("    No boundary found for ", query)
+    return(NULL)
+  }
+
+  sf::st_as_sf(
+    sf::st_sfc(
+      sf::st_polygon(list(rbind(
+        c(bb["x","min"], bb["y","min"]),
+        c(bb["x","min"], bb["y","max"]),
+        c(bb["x","max"], bb["y","max"]),
+        c(bb["x","max"], bb["y","min"]),
+        c(bb["x","min"], bb["y","min"])
+      ))),
+      crs = 4326
+    )
+  )
+}
+
+get_city_lengths_for_country <- function(country_name, cities_df) {
+  message("=== Country: ", country_name, " ===")
+
+  cycle_net_country <- get_country_cycle_cached(country_name)
+
+  cities_country <- cities_df |>
+    filter(country == country_name)
+
+  map_dfr(seq_len(nrow(cities_country)), function(i) {
+    city <- cities_country$city_name[i]
+
+    message("City: ", city)
+
+    poly <- get_city_polygon(city, country_name)
+    if (is.null(poly)) {
+      return(tibble(
+        country        = country_name,
+        city_name      = city,
+        total_cycle_km = NA_real_
+      ))
+    }
+
+    poly <- sf::st_transform(poly, sf::st_crs(cycle_net_country))
+
+    cyc_city <- suppressWarnings(
+      sf::st_intersection(cycle_net_country, poly)
+    )
+
+    if (nrow(cyc_city) == 0) {
+      return(tibble(
+        country        = country_name,
+        city_name      = city,
+        total_cycle_km = 0
+      ))
+    }
+
+    cyc_city$length_m <- sf::st_length(cyc_city)
+
+    tibble(
+      country        = country_name,
+      city_name      = city,
+      total_cycle_km = sum(as.numeric(cyc_city$length_m), na.rm = TRUE) / 1000
+    )
+  })
+}
+
+```
+
+```{r}
+#| label: download-and-update-city-lengths
+#| eval: false
+#| include: false
+
+# 0. All countries present in the QoL data
+countries_all <- sort(unique(all_cities$country))
+
+# 1. Load previous city lengths if they exist
+if (file.exists("outputs/city_lengths_all.rds")) {
+  city_lengths_all <- readRDS("outputs/city_lengths_all.rds")
+} else {
+  city_lengths_all <- tibble(
+    country        = character(),
+    city_name      = character(),
+    total_cycle_km = numeric()
+  )
+}
+
+# 2. Work out which countries already have lengths in the RDS
+countries_done <- sort(unique(city_lengths_all$country))
+countries_todo <- setdiff(countries_all, countries_done)
+# countries_done <- setdiff(countries_done, "Ireland")
+countries_all
+countries_done
+countries_todo
+
+# 3. Loop over remaining countries, saving as we go
+if (length(countries_todo) > 0) {
+  dir.create("outputs", showWarnings = FALSE)
+
+  for (cty in countries_todo) {
+    message("=== Processing country: ", cty, " ===")
+
+    res <- try(
+      get_city_lengths_for_country(cty, all_cities),
+      silent = TRUE
+    )
+
+    if (inherits(res, "try-error")) {
+      warning("Failed for ", cty, ": ", conditionMessage(attr(res, "condition")))
+      next
+    }
+
+    # Update combined table and save after each country
+    city_lengths_all <- bind_rows(city_lengths_all, res) |>
+      distinct(country, city_name, .keep_all = TRUE)
+
+    saveRDS(city_lengths_all, "outputs/city_lengths_all.rds")
+    message("Saved updated city_lengths_all.rds (", nrow(city_lengths_all), " rows)")
+  }
+} else {
+  message("No new countries to process. All done.")
+}
+
+city_lengths_all
+
+```
+
+## Results
+
+```{r}
+#| label: analysis-test
+#| include: false
+
+test_countries <- c(
+  "Albania",
+  "Austria",
+  "Belgium",
+  "Bulgaria",
+  "Croatia",
+  "Cyprus",
+  "Czech Republic",
+  "Denmark",
+  "Estonia",
+  "Finland",
+  "France",
+  "Greece",
+  "Hungary",
+  "Iceland",
+  "Ireland",
+  "Italy",
+  "Latvia",
+  "Lithuania",
+  "Luxembourg",
+  "Macedonia",
+  "Malta",
+  "Montenegro",
+  "Netherlands",
+  "Poland",
+  "Portugal",
+  "Romania",
+  "Serbia",
+  "Slovakia",
+  "Slovenia",
+  "Spain",
+  "Sweden",
+  "Switzerland",
+  "Turkey")
+
+test_cities <- all_cities |>
+  filter(country %in% test_countries)
+
+dir.create("outputs", showWarnings = FALSE)
+
+city_lengths_all <- readRDS("outputs/city_lengths_all.rds")
+
+analysis_test <- test_cities |>
+  left_join(
+    city_lengths_all,
+    by = c("country", "city_name")
+  ) |>
+  mutate(
+    bike_share_pct    = bike_prop * 100,
+    infra_km_per_1000 = total_cycle_km / (population / 1000)
+  )
+
+analysis_test |>
+  select(country, city_name, population, bike_share_pct, infra_km_per_1000)
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| paged-print: false
+
+plot_data <- analysis_test |>
+  filter(
+    !is.na(infra_km_per_1000),
+    !is.na(bike_share_pct),
+    infra_km_per_1000 <= 10,
+    population > 500000,
+    country != "Turkey"# some cities boundaries seem wrong -- too much infra! We need to solve this
+)
+
+set.seed(123)
+
+scatter_plot <- ggplot(
+  plot_data,
+  aes(
+    x      = infra_km_per_1000,
+    y      = bike_share_pct,
+    size   = population,
+    colour = country
+  )
+) +
+  geom_point(alpha = 0.75) +
+  geom_smooth(method = "lm", se = FALSE,
+              colour = "grey40", linewidth = 0.5, linetype = "dashed") +
+  ggrepel::geom_text_repel(
+    aes(label = city_name),
+    size         = 3,
+    show.legend  = FALSE,
+    max.overlaps = 20
+  ) +
+  scale_size_continuous(
+    name   = "Population",
+    labels = scales::label_number(scale_cut = scales::cut_short_scale()),
+    range  = c(2, 9),
+    guide  = guide_legend(override.aes = list(alpha = 1))
+  ) +
+  labs(
+    x = "Cycling infrastructure (km per 1 000 residents)",
+    y = "Cycling as main mode (%)",
+    title  = "Cycling levels and cycling infrastructure"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    plot.title       = element_text(face = "bold"),
+    panel.grid.minor = element_blank()
+  ) +
+  guides(colour = "none")      # remove country legend
+
+scatter_plot
+
+dir.create("figs", showWarnings = FALSE)
+
+ggsave("figs/scatter_plot.png", bg = "white")
+```
+
+## Next steps
+
+- Check city boundaries and cases with missing or zero cycling infrastructure (e.g. Spanish, Irish, and Finish cities).
+
+- Standardise city names in English.
+
+- Address download issues for large countries (Germany and the UK). Also Ireland downloading, currently it seems to download Iceland
+
+- Expand the set of simple metrics (e.g. cycling network/area or total network).
+
+- Fit basic regression models to examine how different infrastructure metrics relate to cycling use.
