@@ -6,36 +6,49 @@ editor: visual
 
 ## Introduction
 
-- Aim: examine which cycling-infrastructure metrics align best with cycling use.
+-   Aim: examine which cycling-infrastructure metrics align best with cycling use.
 
-- Start with simple measures (total km, km per 1 000 people) -- foundation for later work on network characteristics.
+-   Start with simple measures (total km, km per 1 000 people) -- foundation for later work on network characteristics.
 
 ## Data and methods
 
-- Cycling infrastructure from OSM, `osmactive` R package.
+-   Cycling infrastructure from OSM, `osmactive` R package.
 
-- Cycling use from [the EU Quality of Life Survey](https://ec.europa.eu/regional_policy/information-sources/maps/quality-of-life_en). 83 cities, ≈ 70,000 respondents; includes a transport question (“On a typical day, which mode(s) of transport do you use most often?”), where cycling is one of the selectable modes (up to two choices allowed), providing a simple city-level proxy for cycling use. There are previous editions.
+-   Cycling use from [the EU Quality of Life Survey](https://ec.europa.eu/regional_policy/information-sources/maps/quality-of-life_en).
+    83 cities, ≈ 70,000 respondents; includes a transport question (“On a typical day, which mode(s) of transport do you use most often?”
+    ), where cycling is one of the selectable modes (up to two choices allowed), providing a simple city-level proxy for cycling use.
+    There are previous editions.
 
-- Create exploratory scatter plots to see associations.
+-   Create exploratory scatter plots to see associations.
 
 <!-- ### Potential cycling-use datasets -->
 
 <!-- - **Eurostat: journeys to work by bicycle**   -->
+
 <!--   Patchy coverage, many cities missing.   -->
+
 <!--   https://ec.europa.eu/eurostat/databrowser/view/urb_ctran__custom_18909106/default/table -->
 
 <!-- - **Bicycle counter data (Kraus and Koch, PNAS)**   -->
+
 <!--   Only for cities with counters.   -->
+
 <!--   https://www.pnas.org/doi/10.1073/pnas.2024399118   -->
+
 <!--   Data: https://zenodo.org/records/4015974 -->
 
 <!-- - **Cycling mode share in 864 European cities (Sobral et al.)**   -->
+
 <!--   Interesting working project, modelled values.   -->
+
 <!--   https://www.cyclingandsociety.org/wp-content/uploads/2025/09/CyclingAndSociety2025-4-Sobral.pdf -->
 
 <!-- - **Quality of Life in European Cities survey (DG REGIO)**   -->
+
 <!--   83 cities, >70,000 respondents; includes question   -->
+
 <!--   “On a typical day, which mode(s) do you use most often? Bicycle”.   -->
+
 <!--   https://ec.europa.eu/regional_policy/information-sources/maps/quality-of-life_en -->
 
 <!-- *the QoL survey seems to provide the most consistent city-level cycling-use indicator across many cities. IS 83 sample enough?* -->
@@ -91,10 +104,12 @@ all_cities <- qol_q5 |>
 ```{r}
 #| label: osm-cache-helpers
 #| include: false
-
-cache_dir <- "/media/eugeni/Extrem SSD/my-stuff/metrics-paper/data/osm_cache"
-
-dir.create(cache_dir, showWarnings = FALSE, recursive = TRUE)
+if (!dir.exists("/media/eugeni/Extrem SSD/my-stuff/metrics-paper/data")) {
+  dir.create("data/cache", showWarnings = FALSE, recursive = TRUE)
+  cache_dir <- "data/cache/osm_cache"
+} else {
+  cache_dir <- "/media/eugeni/Extrem SSD/my-stuff/metrics-paper/data/osm_cache"
+}
 
 osm_country_path <- function(country) {
   str_glue("{cache_dir}/osm_{country}.rds")
@@ -282,7 +297,6 @@ if (length(countries_todo) > 0) {
 }
 
 city_lengths_all
-
 ```
 
 ## Results
@@ -397,24 +411,33 @@ scatter_plot <- ggplot(
   theme(
     plot.title       = element_text(face = "bold"),
     panel.grid.minor = element_blank()
-  ) +
-  guides(colour = "none")      # remove country legend
+  )
 
 scatter_plot
 
 dir.create("figs", showWarnings = FALSE)
 
 ggsave("figs/scatter_plot.png", bg = "white")
+
+# Correlation coefficient
+cor_coef <- cor(
+  plot_data$infra_km_per_1000,
+  plot_data$bike_share_pct,
+  method = "pearson",
+  use    = "complete.obs"
+)
+cor_coef^2
 ```
 
 ## Next steps
 
-- Check city boundaries and cases with missing or zero cycling infrastructure (e.g. Spanish, Irish, and Finish cities).
+-   Check city boundaries and cases with missing or zero cycling infrastructure (e.g. Spanish, Irish, and Finish cities).
 
-- Standardise city names in English.
+-   Standardise city names in English.
 
-- Address download issues for large countries (Germany and the UK). Also Ireland downloading, currently it seems to download Iceland
+-   Address download issues for large countries (Germany and the UK).
+    Also Ireland downloading, currently it seems to download Iceland
 
-- Expand the set of simple metrics (e.g. cycling network/area or total network).
+-   Expand the set of simple metrics (e.g. cycling network/area or total network).
 
-- Fit basic regression models to examine how different infrastructure metrics relate to cycling use.
+-   Fit basic regression models to examine how different infrastructure metrics relate to cycling use.
