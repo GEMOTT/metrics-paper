@@ -1,7 +1,6 @@
 ---
 title: "Preliminary cycling infra vs usage analysis"
 format: html
-editor: visual
 ---
 
 ## Introduction
@@ -295,7 +294,6 @@ if (length(countries_todo) > 0) {
 } else {
   message("No new countries to process. All done.")
 }
-
 city_lengths_all
 ```
 
@@ -400,11 +398,12 @@ scatter_plot <- ggplot(
     name   = "Population",
     labels = scales::label_number(scale_cut = scales::cut_short_scale()),
     range  = c(2, 9),
-    guide  = guide_legend(override.aes = list(alpha = 1))
+    guide  = guide_legend(override.aes = list(alpha = 1, colour = "grey60"))
   ) +
   labs(
     x = "Cycling infrastructure (km per 1 000 residents)",
     y = "Cycling as main mode (%)",
+    colour = "Country",
     title  = "Cycling levels and cycling infrastructure"
   ) +
   theme_minimal(base_size = 11) +

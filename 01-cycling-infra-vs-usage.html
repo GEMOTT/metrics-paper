@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.7.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -30,10 +30,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="01-cycling-infra-vs-usage_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="01-cycling-infra-vs-usage_files/libs/quarto-html/anchor.min.js"></script>
 <link href="01-cycling-infra-vs-usage_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="01-cycling-infra-vs-usage_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="01-cycling-infra-vs-usage_files/libs/quarto-html/quarto-syntax-highlighting-985aa47af68dae11cd4d235c71fb941e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="01-cycling-infra-vs-usage_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="01-cycling-infra-vs-usage_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="01-cycling-infra-vs-usage_files/libs/bootstrap/bootstrap-be1c3f4972a3204a2c2ae467f9423287.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="01-cycling-infra-vs-usage_files/libs/bootstrap/bootstrap-4e1d4c5f432e3ba29f8a83429d930dd8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -74,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="data-and-methods">Data and methods</h2>
 <ul>
 <li><p>Cycling infrastructure from OSM, <code>osmactive</code> R package.</p></li>
-<li><p>Cycling use from <a href="https://ec.europa.eu/regional_policy/information-sources/maps/quality-of-life_en">the EU Quality of Life Survey</a>. 83 cities, ≈ 70,000 respondents; includes a transport question (“On a typical day, which mode(s) of transport do you use most often?”), where cycling is one of the selectable modes (up to two choices allowed), providing a simple city-level proxy for cycling use. There are previous editions.</p></li>
+<li><p>Cycling use from <a href="https://ec.europa.eu/regional_policy/information-sources/maps/quality-of-life_en">the EU Quality of Life Survey</a>. 83 cities, ≈ 70,000 respondents; includes a transport question (“On a typical day, which mode(s) of transport do you use most often?” ), where cycling is one of the selectable modes (up to two choices allowed), providing a simple city-level proxy for cycling use. There are previous editions.</p></li>
 <li><p>Create exploratory scatter plots to see associations.</p></li>
 </ul>
 <!-- ### Potential cycling-use datasets -->
@@ -104,16 +104,17 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 </div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2528984</code></pre>
+</div>
 </div>
 </section>
 <section id="next-steps" class="level2">
 <h2 class="anchored" data-anchor-id="next-steps">Next steps</h2>
 <ul>
-<li><p>Fix city boundaries and resolve cases with missing or zero cycling infrastructure.</p></li>
+<li><p>Check city boundaries and cases with missing or zero cycling infrastructure (e.g.&nbsp;Spanish, Irish, and Finish cities).</p></li>
 <li><p>Standardise city names in English.</p></li>
-<li><p>Recompute infrastructure metrics once boundaries are corrected.</p></li>
-<li><p>Address download issues for large countries (Germany and the UK).</p></li>
-<li><p>Address Ireland downloading, currently it seems to download Iceland</p></li>
+<li><p>Address download issues for large countries (Germany and the UK). Also Ireland downloading, currently it seems to download Iceland</p></li>
 <li><p>Expand the set of simple metrics (e.g.&nbsp;cycling network/area or total network).</p></li>
 <li><p>Fit basic regression models to examine how different infrastructure metrics relate to cycling use.</p></li>
 </ul>
