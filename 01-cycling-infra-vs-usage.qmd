@@ -144,7 +144,6 @@ get_country_cycle_cached <- function(country_name) {
     osm   <- get_country_osm_cached(country_name)
     cycle <- osmactive::get_cycling_network(osm)
 
-    cycle <- sf::st_transform(cycle, 3857)
     cycle$length_m <- sf::st_length(cycle)
 
     message("Saving cycle cache to ", path)
@@ -158,7 +157,6 @@ get_country_cycle_cached <- function(country_name) {
 ```{r}
 #| label: city-tools
 #| include: false
-
 get_city_polygon <- function(city, country) {
   query <- paste(city, country, sep = ", ")
   message("  Boundary for: ", query)
@@ -169,27 +167,48 @@ get_city_polygon <- function(city, country) {
   )
 
   if (inherits(poly, "sf")) {
-    return(poly)
-  }
+    message("    Got polygon boundary for ", query)
+  } else {
+    message("    No polygon boundary for ", query, "; trying bounding box")
+    bb <- osmdata::getbb(query)
+    if (is.null(bb)) {
+      warning("    No boundary found for ", query)
+      return(NULL)
+    }
 
-  bb <- osmdata::getbb(query)
-  if (is.null(bb)) {
-    warning("    No boundary found for ", query)
-    return(NULL)
-  }
-
-  sf::st_as_sf(
-    sf::st_sfc(
-      sf::st_polygon(list(rbind(
-        c(bb["x","min"], bb["y","min"]),
-        c(bb["x","min"], bb["y","max"]),
-        c(bb["x","max"], bb["y","max"]),
-        c(bb["x","max"], bb["y","min"]),
-        c(bb["x","min"], bb["y","min"])
-      ))),
-      crs = 4326
+    poly <- sf::st_as_sf(
+      sf::st_sfc(
+        sf::st_polygon(list(rbind(
+          c(bb["x", "min"], bb["y", "min"]),
+          c(bb["x", "min"], bb["y", "max"]),
+          c(bb["x", "max"], bb["y", "max"]),
+          c(bb["x", "max"], bb["y", "min"]),
+          c(bb["x", "min"], bb["y", "min"])
+        ))),
+        crs = 4326
+      )
     )
-  )
+  }
+
+  # Calculate area
+  area_sq_km <- sum(as.numeric(sf::st_area(poly))) / 1e6
+
+  message("    Area: ", round(area_sq_km, 2), " km sq")
+
+  if (area_sq_km > 1000) {
+    message("    Area > 1000 km sq. Clipping to 25km radius from centroid.")
+
+    # Find centroid of the union (in case of multiple polygons)
+    centroid <- sf::st_centroid(sf::st_union(poly))
+
+    # Create 25km buffer
+    buffer <- sf::st_buffer(centroid, dist = 25000)
+
+    # Intersect
+    poly <- sf::st_intersection(poly, buffer)
+  }
+
+  return(poly)
 }
 
 get_city_lengths_for_country <- function(country_name, cities_df) {
@@ -213,8 +232,6 @@ get_city_lengths_for_country <- function(country_name, cities_df) {
         total_cycle_km = NA_real_
       ))
     }
-
-    poly <- sf::st_transform(poly, sf::st_crs(cycle_net_country))
 
     cyc_city <- suppressWarnings(
       sf::st_intersection(cycle_net_country, poly)
