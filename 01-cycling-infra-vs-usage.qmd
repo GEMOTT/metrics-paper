@@ -334,8 +334,8 @@ cities_all <- all_cities |>
   arrange(country, city_name)
 
 # 1. Load previous city lengths if they exist
-if (file.exists("outputs/city_lengths_all.rds")) {
-  city_lengths_all <- readRDS("outputs/city_lengths_all.rds")
+if (file.exists("outputs/city_lengths_all.csv")) {
+  city_lengths_all <- read_csv("outputs/city_lengths_all.csv", show_col_types = FALSE)
   cols_to_add <- c("off_road_km", "segregated_wide_km", "segregated_narrow_km", "painted_km", "shared_footway_km")
   for (col in cols_to_add) {
     if (!col %in% names(city_lengths_all)) {
@@ -395,8 +395,8 @@ if (nrow(cities_todo) > 0) {
         filter(!(country == cty & city_name == city)) |>
         bind_rows(res)
 
-    saveRDS(city_lengths_all, "outputs/city_lengths_all.rds")
-    message("Saved updated city_lengths_all.rds")
+    write_csv(city_lengths_all, "outputs/city_lengths_all.csv")
+    message("Saved updated city_lengths_all.csv")
   }
   
   end_time <- Sys.time()
@@ -472,7 +472,7 @@ test_cities <- all_cities |>
 
 dir.create("outputs", showWarnings = FALSE)
 
-city_lengths_all <- readRDS("outputs/city_lengths_all.rds")
+city_lengths_all <- read_csv("outputs/city_lengths_all.csv", show_col_types = FALSE)
 
 analysis_test <- test_cities |>
   left_join(
