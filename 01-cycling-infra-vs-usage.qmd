@@ -511,10 +511,12 @@ analysis_test |>
 ```
 
 ```{r}
+#| label: fig-infra-usage-types
 #| echo: false
 #| message: false
 #| warning: false
 #| paged-print: false
+#| fig-cap: "Relationship between cycling mode share and different types of cycling infrastructure, colored by European region."
 
 # Prepare data for plotting
 plot_data <- analysis_test |>

@@ -86,8 +86,6 @@ if (inherits(test_result, "try-error")) {
 
 ## Results
 
-![](01-cycling-infra-vs-usage_files/figure-commonmark/unnamed-chunk-2-1.png)
-
     # A tibble: 6 × 3
       infra_type_label    r_squared n_cities
       <fct>                   <dbl>    <int>
@@ -97,6 +95,15 @@ if (inherits(test_result, "try-error")) {
     4 Off-road paths          0.094       56
     5 Painted lanes           0.041       56
     6 Shared footways         0.081       56
+
+<div id="fig-infra-usage-types">
+
+![](01-cycling-infra-vs-usage_files/figure-commonmark/fig-infra-usage-types-1.png)
+
+Figure 1: Relationship between cycling mode share and different types of
+cycling infrastructure, colored by European region.
+
+</div>
 
 The analysis reveals varying degrees of association between
 infrastructure types and cycling levels. Notably, narrow segregated
