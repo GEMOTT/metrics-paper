@@ -115,47 +115,7 @@ if (!dir.exists("/media/eugeni/Extrem SSD/my-stuff/metrics-paper/data")) {
   cache_dir <- "/media/eugeni/Extrem SSD/my-stuff/metrics-paper/data/osm_cache"
 }
 
-osm_country_path <- function(country) {
-  str_glue("{cache_dir}/osm_{country}.rds")
-}
 
-cycle_country_path <- function(country) {
-  str_glue("{cache_dir}/cycle_{country}.rds")
-}
-
-
-get_country_osm_cached <- function(country_name) {
-  path <- osm_country_path(country_name)
-
-  if (file.exists(path)) {
-    message("Reading cached OSM for ", country_name, " from ", path)
-    readRDS(path)
-  } else {
-    message("Downloading OSM for ", country_name)
-    osm <- osmactive::get_travel_network(country_name)
-    message("Saving OSM cache to ", path)
-    saveRDS(osm, path)
-    osm
-  }
-}
-
-get_country_cycle_cached <- function(country_name) {
-  path <- cycle_country_path(country_name)
-
-  if (file.exists(path)) {
-    message("Reading cached cycling network for ", country_name, " from ", path)
-    readRDS(path)
-  } else {
-    osm   <- get_country_osm_cached(country_name)
-    cycle <- osmactive::get_cycling_network(osm)
-
-    cycle$length_m <- sf::st_length(cycle)
-
-    message("Saving cycle cache to ", path)
-    saveRDS(cycle, path)
-    cycle
-  }
-}
 
 ```
 
@@ -216,113 +176,114 @@ get_city_polygon <- function(city, country) {
   return(poly)
 }
 
-get_city_lengths_for_country <- function(country_name, cities_df) {
-  message("=== Country: ", country_name, " ===")
-
-  cycle_net_country <- get_country_cycle_cached(country_name)
-  # Also load full OSM to identify roads for distance calculation
-  osm_country <- get_country_osm_cached(country_name)
+get_city_metrics <- function(city_name, country_name) {
+  message("=== City: ", city_name, ", ", country_name, " ===")
   
-  # Filter for "car roads" to calculate distance from
-  car_roads_country <- osm_country |>
+  poly <- get_city_polygon(city_name, country_name)
+  if (is.null(poly)) {
+    return(tibble(
+      country           = country_name,
+      city_name         = city_name,
+      total_cycle_km    = NA_real_,
+      off_road_km       = NA_real_,
+      segregated_wide_km = NA_real_,
+      segregated_narrow_km = NA_real_,
+      painted_km        = NA_real_,
+      shared_footway_km = NA_real_
+    ))
+  }
+
+  # Download/extract OSM for just this city area
+  # Using boundary=poly ensures we only load relevant data into RAM
+  # Temporarily disable S2 to avoid "loop" errors with osmactive/geos
+  sf::sf_use_s2(FALSE)
+  osm_city <- tryCatch({
+    osmactive::get_travel_network(place = country_name, boundary = poly)
+  }, error = function(e) {
+    warning("Failed to get OSM for ", city_name, ": ", e$message)
+    return(NULL)
+  })
+  sf::sf_use_s2(TRUE)
+  
+  if (is.null(osm_city)) {
+    return(tibble(
+      country           = country_name,
+      city_name         = city_name,
+      total_cycle_km    = NA_real_,
+      off_road_km       = NA_real_,
+      segregated_wide_km = NA_real_,
+      segregated_narrow_km = NA_real_,
+      painted_km        = NA_real_,
+      shared_footway_km = NA_real_
+    ))
+  }
+
+  # Get cycling network
+  cyc_city <- osmactive::get_cycling_network(osm_city)
+  
+  if (nrow(cyc_city) == 0) {
+    return(tibble(
+      country           = country_name,
+      city_name         = city_name,
+      total_cycle_km    = 0,
+      off_road_km       = 0,
+      segregated_wide_km = 0,
+      segregated_narrow_km = 0,
+      painted_km        = 0,
+      shared_footway_km = 0
+    ))
+  }
+
+  # Identify car roads for distance calculation (from the same city extract)
+  car_roads_city <- osm_city |>
     filter(highway %in% c("motorway", "motorway_link", "trunk", "trunk_link", 
                           "primary", "primary_link", "secondary", "secondary_link", 
                           "tertiary", "tertiary_link", "unclassified", "residential"))
 
-  cities_country <- cities_df |>
-    filter(country == country_name)
+  # Calculate distance to nearest road
+  if (nrow(car_roads_city) > 0) {
+    pts <- sf::st_point_on_surface(cyc_city)
+    nearest_idx <- sf::st_nearest_feature(pts, car_roads_city)
+    dists <- sf::st_distance(pts, car_roads_city[nearest_idx,], by_element = TRUE)
+    cyc_city$distance_to_road <- as.numeric(dists)
+  } else {
+    cyc_city$distance_to_road <- 0 
+  }
 
-  map_dfr(seq_len(nrow(cities_country)), function(i) {
-    city <- cities_country$city_name[i]
-
-    message("City: ", city)
-
-    poly <- get_city_polygon(city, country_name)
-    if (is.null(poly)) {
-      return(tibble(
-        country           = country_name,
-        city_name         = city,
-        total_cycle_km    = NA_real_,
-        off_road_km       = NA_real_,
-        segregated_wide_km = NA_real_,
-        segregated_narrow_km = NA_real_,
-        painted_km        = NA_real_,
-        shared_footway_km = NA_real_
-      ))
-    }
-
-    # Intersect cycle network
-    cyc_city <- suppressWarnings(sf::st_intersection(cycle_net_country, poly))
-    
-    if (nrow(cyc_city) == 0) {
-      return(tibble(
-        country           = country_name,
-        city_name         = city,
-        total_cycle_km    = 0,
-        off_road_km       = 0,
-        segregated_wide_km = 0,
-        segregated_narrow_km = 0,
-        painted_km        = 0,
-        shared_footway_km = 0
-      ))
-    }
-
-    # Intersect roads (for distance calc)
-    roads_city <- suppressWarnings(sf::st_intersection(car_roads_country, poly))
-    
-    # Calculate distance to nearest road
-    # (Required for classify_cycle_infrastructure)
-    if (nrow(roads_city) > 0) {
-      pts <- sf::st_point_on_surface(cyc_city)
-      nearest_idx <- sf::st_nearest_feature(pts, roads_city)
-      dists <- sf::st_distance(pts, roads_city[nearest_idx,], by_element = TRUE)
-      cyc_city$distance_to_road <- as.numeric(dists)
-    } else {
-      # If no roads found (unlikely), assume far away? Or 0?
-      # Default to 0 to be safe (not off-road) unless explicitly defined
-      cyc_city$distance_to_road <- 0 
-    }
-
-    # Classify
-    # Catch errors in classification to avoid stopping the whole loop
-    cyc_classified <- tryCatch({
-      osmactive::classify_cycle_infrastructure(cyc_city)
-    }, error = function(e) {
-      warning("Classification failed for ", city, ": ", e$message)
-      cyc_city$cycle_segregation <- NA_character_
-      cyc_city
-    })
-
-    # Calculate lengths
-    cyc_classified$length_m <- sf::st_length(cyc_classified)
-    
-    # Summarise
-    summary <- cyc_classified |>
-      sf::st_drop_geometry() |>
-      group_by(cycle_segregation) |>
-      summarise(len_km = sum(as.numeric(length_m), na.rm = TRUE) / 1000) |>
-      ungroup()
-    
-    # Extract specific categories
-    # Categories from osmactive: "Segregated Track (wide)", "Segregated Track (narrow)", 
-    # "Off Road Path", "Shared Footway", "Painted Cycle Lane"
-    
-    get_len <- function(cat) {
-      val <- summary$len_km[summary$cycle_segregation == cat]
-      if (length(val) == 0 || is.na(val)) 0 else val
-    }
-
-    tibble(
-      country           = country_name,
-      city_name         = city,
-      total_cycle_km    = sum(as.numeric(cyc_classified$length_m), na.rm = TRUE) / 1000,
-      off_road_km       = get_len("Off Road Path"),
-      segregated_wide_km = get_len("Segregated Track (wide)"),
-      segregated_narrow_km = get_len("Segregated Track (narrow)"),
-      painted_km        = get_len("Painted Cycle Lane"),
-      shared_footway_km = get_len("Shared Footway")
-    )
+  # Classify
+  cyc_classified <- tryCatch({
+    osmactive::classify_cycle_infrastructure(cyc_city)
+  }, error = function(e) {
+    warning("Classification failed for ", city_name, ": ", e$message)
+    cyc_city$cycle_segregation <- NA_character_
+    cyc_city
   })
+
+  # Calculate lengths
+  cyc_classified$length_m <- sf::st_length(cyc_classified)
+  
+  # Summarise
+  summary <- cyc_classified |>
+    sf::st_drop_geometry() |>
+    group_by(cycle_segregation) |>
+    summarise(len_km = sum(as.numeric(length_m), na.rm = TRUE) / 1000) |>
+    ungroup()
+  
+  get_len <- function(cat) {
+    val <- summary$len_km[summary$cycle_segregation == cat]
+    if (length(val) == 0 || is.na(val)) 0 else val
+  }
+
+  tibble(
+    country           = country_name,
+    city_name         = city_name,
+    total_cycle_km    = sum(as.numeric(cyc_classified$length_m), na.rm = TRUE) / 1000,
+    off_road_km       = get_len("Off Road Path"),
+    segregated_wide_km = get_len("Segregated Track (wide)"),
+    segregated_narrow_km = get_len("Segregated Track (narrow)"),
+    painted_km        = get_len("Painted Cycle Lane"),
+    shared_footway_km = get_len("Shared Footway")
+  )
 }
 
 ```
@@ -332,13 +293,16 @@ get_city_lengths_for_country <- function(country_name, cities_df) {
 #| eval: true
 #| include: false
 
-# 0. All countries present in the QoL data
-countries_all <- sort(unique(all_cities$country))
+# 0. All cities present in the QoL data
+cities_all <- all_cities |>
+  select(country, city_name) |>
+  distinct() |>
+  mutate(across(everything(), as.character)) |>
+  arrange(country, city_name)
 
 # 1. Load previous city lengths if they exist
 if (file.exists("outputs/city_lengths_all.rds")) {
   city_lengths_all <- readRDS("outputs/city_lengths_all.rds")
-  # Ensure new columns exist if reading from old file
   cols_to_add <- c("off_road_km", "segregated_wide_km", "segregated_narrow_km", "painted_km", "shared_footway_km")
   for (col in cols_to_add) {
     if (!col %in% names(city_lengths_all)) {
@@ -358,53 +322,55 @@ if (file.exists("outputs/city_lengths_all.rds")) {
   )
 }
 
-# 2. Work out which countries already have lengths in the RDS
-# We check which countries have the new 'off_road_km' column populated
+# 2. Work out which cities already have lengths in the RDS (with new columns)
 if ("off_road_km" %in% names(city_lengths_all)) {
-  countries_done <- city_lengths_all |>
+  cities_done <- city_lengths_all |>
     filter(!is.na(off_road_km)) |>
-    pull(country) |>
-    unique() |>
-    sort()
+    select(country, city_name)
 } else {
-  countries_done <- character(0)
+  cities_done <- tibble(country = character(), city_name = character())
 }
 
-countries_todo <- setdiff(countries_all, countries_done)
+cities_todo <- cities_all |>
+  anti_join(cities_done, by = c("country", "city_name"))
 
-countries_all
-countries_done
-countries_todo
+message("Cities to process: ", nrow(cities_todo))
 
-# 3. Loop over remaining countries, saving as we go
-if (length(countries_todo) > 0) {
+# 3. Loop over remaining cities, saving as we go
+if (nrow(cities_todo) > 0) {
   dir.create("outputs", showWarnings = FALSE)
 
-  for (cty in countries_todo) {
-    message("=== Processing country: ", cty, " ===")
-
-    res <- try(
-      get_city_lengths_for_country(cty, all_cities),
-      silent = TRUE
-    )
+  start_time <- Sys.time()
+  
+  for (i in seq_len(nrow(cities_todo))) {
+    cty <- cities_todo$country[i]
+    city <- cities_todo$city_name[i]
+    
+    res <- try({
+      get_city_metrics(city, cty)
+    }, silent = TRUE)
 
     if (inherits(res, "try-error")) {
-      warning("Failed for ", cty, ": ", conditionMessage(attr(res, "condition")))
+      warning("Failed for ", city, ": ", conditionMessage(attr(res, "condition")))
       next
     }
+    
+    if (is.null(res)) next
 
-    # Update combined table and save after each country
-    # Remove old entries for this country if they exist (for re-running)
+    # Update combined table and save after each city
     city_lengths_all <- city_lengths_all |>
-        filter(country != cty) |>
-        bind_rows(res) |>
-        distinct(country, city_name, .keep_all = TRUE)
+        filter(!(country == cty & city_name == city)) |>
+        bind_rows(res)
 
     saveRDS(city_lengths_all, "outputs/city_lengths_all.rds")
-    message("Saved updated city_lengths_all.rds (", nrow(city_lengths_all), " rows)")
+    message("Saved updated city_lengths_all.rds")
   }
+  
+  end_time <- Sys.time()
+  timing_msg <- paste0("Processed ", nrow(cities_todo), " cities in ", round(as.numeric(difftime(end_time, start_time, units = "secs")), 2), " seconds.")
+  message(timing_msg)
 } else {
-  message("No new countries to process. All done.")
+  message("No new cities to process. All done.")
 }
 city_lengths_all
 ```
@@ -414,15 +380,10 @@ city_lengths_all
 #| eval: false
 
 # Test the classification logic on a small country/city (Monaco)
-test_city_df <- tibble(
-  country = "Monaco",
-  city_name = "Monaco"
-)
-
 message("Running classification test for Monaco...")
 # We use try() to allow the document to render even if the test fails (e.g. internet issues)
 test_result <- try({
-  get_city_lengths_for_country("Monaco", test_city_df)
+  get_city_metrics("Monaco", "Monaco")
 }, silent = TRUE)
 
 if (inherits(test_result, "try-error")) {
