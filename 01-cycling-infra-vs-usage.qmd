@@ -270,11 +270,48 @@ get_city_metrics <- function(city_name, country_name) {
     saveRDS(cyc_city, cycle_path)
   }
   
+  # Calculate total road length if not already done
+  # We can do this from car_roads_city if available, or load OSM if needed
+  # Since we are inside the function, we might have skipped loading OSM if cycle path existed
+  # But we need OSM for roads.
+  # Check if we have car_roads_city variable.
+  if (!exists("car_roads_city")) {
+     # If we loaded cycle path from cache, we didn't load OSM.
+     # We need to load OSM to get roads.
+     # But wait, if we load OSM every time, we lose the benefit of cycle cache for speed?
+     # Yes. But we need to calculate this new metric once.
+     if (file.exists(osm_path)) {
+        osm_city <- readRDS(osm_path)
+        car_roads_city <- osm_city |>
+          filter(highway %in% c("motorway", "motorway_link", "trunk", "trunk_link", 
+                                "primary", "primary_link", "secondary", "secondary_link", 
+                                "tertiary", "tertiary_link", "unclassified", "residential"))
+     } else {
+       # Should have been created/loaded above?
+       # The logic above: if cycle_path exists, it DOES NOT load OSM.
+       # So we must load OSM here if it's missing.
+       # (See logic: if (file.exists(cycle_path)) ... else ... )
+       # To fix: ensure OSM is loaded if we need road stats.
+       # For now, I will just load it.
+       # This is safe because I save osm_path before cycle_path.
+        osm_city <- readRDS(osm_path)
+        car_roads_city <- osm_city |>
+          filter(highway %in% c("motorway", "motorway_link", "trunk", "trunk_link", 
+                                "primary", "primary_link", "secondary", "secondary_link", 
+                                "tertiary", "tertiary_link", "unclassified", "residential"))
+     }
+  }
+  
+  # Calculate total road length
+  car_roads_city$length_m <- sf::st_length(car_roads_city)
+  total_road_km <- round(sum(as.numeric(car_roads_city$length_m), na.rm = TRUE) / 1000, 2)
+
   if (nrow(cyc_city) == 0) {
     return(tibble(
       country           = country_name,
       city_name         = city_name,
       total_cycle_km    = 0,
+      total_road_km     = total_road_km,
       off_road_km       = 0,
       segregated_wide_km = 0,
       segregated_narrow_km = 0,
@@ -311,6 +348,7 @@ get_city_metrics <- function(city_name, country_name) {
     country           = country_name,
     city_name         = city_name,
     total_cycle_km    = round(sum(as.numeric(cyc_classified$length_m), na.rm = TRUE) / 1000, 2),
+    total_road_km     = total_road_km,
     off_road_km       = round(get_len("Off Road Path"), 2),
     segregated_wide_km = round(get_len("Segregated Track (wide)"), 2),
     segregated_narrow_km = round(get_len("Segregated Track (narrow)"), 2),
@@ -336,7 +374,7 @@ cities_all <- all_cities |>
 # 1. Load previous city lengths if they exist
 if (file.exists("outputs/city_lengths_all.csv")) {
   city_lengths_all <- read_csv("outputs/city_lengths_all.csv", show_col_types = FALSE)
-  cols_to_add <- c("off_road_km", "segregated_wide_km", "segregated_narrow_km", "painted_km", "shared_footway_km")
+  cols_to_add <- c("total_road_km", "off_road_km", "segregated_wide_km", "segregated_narrow_km", "painted_km", "shared_footway_km")
   for (col in cols_to_add) {
     if (!col %in% names(city_lengths_all)) {
       city_lengths_all[[col]] <- NA_real_
@@ -347,6 +385,7 @@ if (file.exists("outputs/city_lengths_all.csv")) {
     country           = character(),
     city_name         = character(),
     total_cycle_km    = numeric(),
+    total_road_km     = numeric(),
     off_road_km       = numeric(),
     segregated_wide_km = numeric(),
     segregated_narrow_km = numeric(),
@@ -356,9 +395,10 @@ if (file.exists("outputs/city_lengths_all.csv")) {
 }
 
 # 2. Work out which cities already have lengths in the RDS (with new columns)
-if ("off_road_km" %in% names(city_lengths_all)) {
+# Check for total_road_km to ensure we have the latest metrics
+if ("total_road_km" %in% names(city_lengths_all)) {
   cities_done <- city_lengths_all |>
-    filter(!is.na(off_road_km)) |>
+    filter(!is.na(total_road_km)) |>
     select(country, city_name)
 } else {
   cities_done <- tibble(country = character(), city_name = character())
@@ -516,39 +556,56 @@ analysis_test |>
 #| message: false
 #| warning: false
 #| paged-print: false
-#| fig-cap: "Relationship between cycling mode share and different types of cycling infrastructure, colored by European region."
+#| fig-cap: "Relationship between cycling mode share and different types of cycling infrastructure (as a percentage of the total road network), colored by European region."
 
 # Prepare data for plotting
 plot_data <- analysis_test |>
   filter(
-    !is.na(total_cycle_km),
+    !is.na(total_road_km),
     !is.na(bike_share_pct),
     population > 100000,
-    country != "Turkey"
-  ) 
+    country != "Turkey",
+    total_road_km > 0
+  ) |>
+  mutate(
+    segregated_km = segregated_wide_km + segregated_narrow_km
+  )
 
 # Create long format for faceting
 plot_data_long <- plot_data |>
   pivot_longer(
-    cols = c(total_cycle_km, off_road_km, segregated_wide_km, segregated_narrow_km, painted_km, shared_footway_km),
+    cols = c(off_road_km, segregated_km, painted_km, shared_footway_km),
     names_to = "infra_type",
     values_to = "km"
   ) |>
   mutate(
-    km_per_1000 = km / (population / 1000),
+    pct_network = (km / total_road_km) * 100,
     infra_type_label = factor(infra_type, 
-      levels = c("total_cycle_km", "segregated_wide_km", "segregated_narrow_km", "off_road_km", "painted_km", "shared_footway_km"),
-      labels = c("Total", "Segregated (wide)", "Segregated (narrow)", "Off-road paths", "Painted lanes", "Shared footways")
+      levels = c("segregated_km", "off_road_km", "painted_km", "shared_footway_km"),
+      labels = c("Segregated tracks", "Off-road paths", "Painted lanes", "Shared footways")
     )
   ) |>
-  filter(km_per_1000 <= 30) # Filter extreme outliers if necessary
+  filter(pct_network <= 50) # Filter extreme outliers
+
+# Calculate R-squared values for facet labels
+cor_data <- plot_data_long |>
+  group_by(infra_type_label) |>
+  summarise(
+    r_squared = round(cor(pct_network, bike_share_pct, use = "complete.obs")^2, 3),
+    n_cities = n(),
+    label_text = paste0(infra_type_label, "\n(R² = ", r_squared, ")")
+  )
+
+# Join R2 labels back to plot data
+plot_data_long <- plot_data_long |>
+  left_join(cor_data, by = "infra_type_label")
 
 set.seed(123)
 
 scatter_plot <- ggplot(
   plot_data_long,
   aes(
-    x      = km_per_1000,
+    x      = pct_network,
     y      = bike_share_pct,
     size   = population,
     colour = Region
@@ -557,7 +614,7 @@ scatter_plot <- ggplot(
   geom_point(alpha = 0.6) +
   geom_smooth(method = "lm", se = FALSE,
               colour = "grey40", linewidth = 0.5, linetype = "dashed") +
-  facet_wrap(~infra_type_label, scales = "free_x") +
+  facet_wrap(~label_text, scales = "free_x") +
   ggrepel::geom_text_repel(
     aes(label = city_name),
     size         = 2.5,
@@ -571,10 +628,10 @@ scatter_plot <- ggplot(
     guide  = guide_legend(override.aes = list(alpha = 1, colour = "grey60"))
   ) +
   labs(
-    x = "Infrastructure (km per 1 000 residents)",
+    x = "Infrastructure (% of total road network)",
     y = "Cycling mode share (%)",
     colour = "Region",
-    title  = "Cycling levels vs. Infrastructure Types"
+    title  = "Cycling levels vs. Infrastructure Composition"
   ) +
   theme_minimal(base_size = 11) +
   theme(
@@ -589,20 +646,20 @@ scatter_plot
 dir.create("figs", showWarnings = FALSE)
 ggsave("figs/scatter_plot.png", bg = "white", width = 10, height = 7)
 
-# Correlation coefficients by type
-cor_data <- plot_data_long |>
-  group_by(infra_type_label) |>
-  summarise(
-    r_squared = round(cor(km_per_1000, bike_share_pct, use = "complete.obs")^2, 3),
-    n_cities = n()
-  )
-
 # Extract for inline text
 r2_vals <- setNames(cor_data$r_squared, cor_data$infra_type_label)
-print(cor_data)
+
+# Print summary table
+cor_data |>
+  rename(
+    `Infrastructure Type` = infra_type_label,
+    `R-squared` = r_squared,
+    `Number of Cities` = n_cities
+  ) |>
+  knitr::kable(caption = "Correlation between cycling infrastructure types and cycling mode share.")
 ```
 
-The analysis reveals varying degrees of association between infrastructure types and cycling levels. Notably, narrow segregated tracks show the strongest correlation ($R^2 =$ `r r2_vals["Segregated (narrow)"]`), significantly higher than total infrastructure ($R^2 =$ `r r2_vals["Total"]`). Off-road paths ($R^2 =$ `r r2_vals["Off-road paths"]`) and painted lanes ($R^2 =$ `r r2_vals["Painted lanes"]`) show weaker associations.
+The analysis reveals varying degrees of association between infrastructure types and cycling levels when normalized by the total road network. Segregated tracks show a correlation of $R^2 =$ `r r2_vals["Segregated tracks"]`. Off-road paths ($R^2 =$ `r r2_vals["Off-road paths"]`) and painted lanes ($R^2 =$ `r r2_vals["Painted lanes"]`) show weaker associations.
 
 ## Next steps
 
