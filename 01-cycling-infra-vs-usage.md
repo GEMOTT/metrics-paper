@@ -88,7 +88,15 @@ if (inherits(test_result, "try-error")) {
 
 ![](01-cycling-infra-vs-usage_files/figure-commonmark/unnamed-chunk-2-1.png)
 
-    [1] 0.2350452
+    # A tibble: 6 × 3
+      infra_type_label    r_squared n_cities
+      <fct>                   <dbl>    <int>
+    1 Total                   0.147       56
+    2 Segregated (wide)       0.04        56
+    3 Segregated (narrow)     0.319       56
+    4 Off-road paths          0.094       56
+    5 Painted lanes           0.041       56
+    6 Shared footways         0.081       56
 
 ## Next steps
 

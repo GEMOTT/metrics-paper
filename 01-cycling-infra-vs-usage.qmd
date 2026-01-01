@@ -179,6 +179,17 @@ get_city_polygon <- function(city, country) {
 get_city_metrics <- function(city_name, country_name) {
   message("=== City: ", city_name, ", ", country_name, " ===")
   
+  # Ensure cache dir exists (helper check)
+  cache_dir <- "data/cache/osm_cache"
+  if (!dir.exists(cache_dir)) dir.create(cache_dir, recursive = TRUE, showWarnings = FALSE)
+  
+  # Define cache paths with sanitized names
+  safe_city <- gsub("[^A-Za-z0-9]", "_", city_name)
+  safe_country <- gsub("[^A-Za-z0-9]", "_", country_name)
+  
+  osm_path <- file.path(cache_dir, paste0("osm_", safe_country, "_", safe_city, ".rds"))
+  cycle_path <- file.path(cache_dir, paste0("cycle_", safe_country, "_", safe_city, ".rds"))
+
   poly <- get_city_polygon(city_name, country_name)
   if (is.null(poly)) {
     return(tibble(
@@ -193,17 +204,28 @@ get_city_metrics <- function(city_name, country_name) {
     ))
   }
 
-  # Download/extract OSM for just this city area
-  # Using boundary=poly ensures we only load relevant data into RAM
-  # Temporarily disable S2 to avoid "loop" errors with osmactive/geos
-  sf::sf_use_s2(FALSE)
-  osm_city <- tryCatch({
-    osmactive::get_travel_network(place = country_name, boundary = poly)
-  }, error = function(e) {
-    warning("Failed to get OSM for ", city_name, ": ", e$message)
-    return(NULL)
-  })
-  sf::sf_use_s2(TRUE)
+  # 1. Get/Load OSM Data
+  if (file.exists(osm_path)) {
+    message("  Reading cached OSM from ", osm_path)
+    osm_city <- readRDS(osm_path)
+  } else {
+    # Download/extract OSM for just this city area
+    # Using boundary=poly ensures we only load relevant data into RAM
+    # Temporarily disable S2 to avoid "loop" errors with osmactive/geos
+    sf::sf_use_s2(FALSE)
+    osm_city <- tryCatch({
+      osmactive::get_travel_network(place = country_name, boundary = poly)
+    }, error = function(e) {
+      warning("Failed to get OSM for ", city_name, ": ", e$message)
+      return(NULL)
+    })
+    sf::sf_use_s2(TRUE)
+    
+    if (!is.null(osm_city)) {
+      message("  Saving OSM to ", osm_path)
+      saveRDS(osm_city, osm_path)
+    }
+  }
   
   if (is.null(osm_city)) {
     return(tibble(
@@ -218,8 +240,35 @@ get_city_metrics <- function(city_name, country_name) {
     ))
   }
 
-  # Get cycling network
-  cyc_city <- osmactive::get_cycling_network(osm_city)
+  # 2. Get/Load Cycling Network
+  if (file.exists(cycle_path)) {
+     message("  Reading cached Cycle net from ", cycle_path)
+     cyc_city <- readRDS(cycle_path)
+  } else {
+    # Get cycling network
+    cyc_city <- osmactive::get_cycling_network(osm_city)
+    
+    # Identify car roads for distance calculation (from the same city extract)
+    car_roads_city <- osm_city |>
+      filter(highway %in% c("motorway", "motorway_link", "trunk", "trunk_link", 
+                            "primary", "primary_link", "secondary", "secondary_link", 
+                            "tertiary", "tertiary_link", "unclassified", "residential"))
+  
+    # Calculate distance to nearest road
+    if (nrow(cyc_city) > 0) {
+      if (nrow(car_roads_city) > 0) {
+        pts <- sf::st_point_on_surface(cyc_city)
+        nearest_idx <- sf::st_nearest_feature(pts, car_roads_city)
+        dists <- sf::st_distance(pts, car_roads_city[nearest_idx,], by_element = TRUE)
+        cyc_city$distance_to_road <- as.numeric(dists)
+      } else {
+        cyc_city$distance_to_road <- 0 
+      }
+    }
+    
+    message("  Saving Cycle net to ", cycle_path)
+    saveRDS(cyc_city, cycle_path)
+  }
   
   if (nrow(cyc_city) == 0) {
     return(tibble(
@@ -232,22 +281,6 @@ get_city_metrics <- function(city_name, country_name) {
       painted_km        = 0,
       shared_footway_km = 0
     ))
-  }
-
-  # Identify car roads for distance calculation (from the same city extract)
-  car_roads_city <- osm_city |>
-    filter(highway %in% c("motorway", "motorway_link", "trunk", "trunk_link", 
-                          "primary", "primary_link", "secondary", "secondary_link", 
-                          "tertiary", "tertiary_link", "unclassified", "residential"))
-
-  # Calculate distance to nearest road
-  if (nrow(car_roads_city) > 0) {
-    pts <- sf::st_point_on_surface(cyc_city)
-    nearest_idx <- sf::st_nearest_feature(pts, car_roads_city)
-    dists <- sf::st_distance(pts, car_roads_city[nearest_idx,], by_element = TRUE)
-    cyc_city$distance_to_road <- as.numeric(dists)
-  } else {
-    cyc_city$distance_to_road <- 0 
   }
 
   # Classify
@@ -461,67 +494,86 @@ analysis_test |>
 #| warning: false
 #| paged-print: false
 
+# Prepare data for plotting
 plot_data <- analysis_test |>
   filter(
-    !is.na(infra_km_per_1000),
+    !is.na(total_cycle_km),
     !is.na(bike_share_pct),
-    infra_km_per_1000 <= 10,
-    population > 500000,
-    country != "Turkey"# some cities boundaries seem wrong -- too much infra! We need to solve this
-)
+    population > 100000,
+    country != "Turkey"
+  ) 
+
+# Create long format for faceting
+plot_data_long <- plot_data |>
+  pivot_longer(
+    cols = c(total_cycle_km, off_road_km, segregated_wide_km, segregated_narrow_km, painted_km, shared_footway_km),
+    names_to = "infra_type",
+    values_to = "km"
+  ) |>
+  mutate(
+    km_per_1000 = km / (population / 1000),
+    infra_type_label = factor(infra_type, 
+      levels = c("total_cycle_km", "segregated_wide_km", "segregated_narrow_km", "off_road_km", "painted_km", "shared_footway_km"),
+      labels = c("Total", "Segregated (wide)", "Segregated (narrow)", "Off-road paths", "Painted lanes", "Shared footways")
+    )
+  ) |>
+  filter(km_per_1000 <= 30) # Filter extreme outliers if necessary
 
 set.seed(123)
 
 scatter_plot <- ggplot(
-  plot_data,
+  plot_data_long,
   aes(
-    x      = infra_km_per_1000,
+    x      = km_per_1000,
     y      = bike_share_pct,
     size   = population,
     colour = country
   )
 ) +
-  geom_point(alpha = 0.75) +
+  geom_point(alpha = 0.6) +
   geom_smooth(method = "lm", se = FALSE,
               colour = "grey40", linewidth = 0.5, linetype = "dashed") +
+  facet_wrap(~infra_type_label, scales = "free_x") +
   ggrepel::geom_text_repel(
     aes(label = city_name),
-    size         = 3,
+    size         = 2.5,
     show.legend  = FALSE,
-    max.overlaps = 20
+    max.overlaps = 10
   ) +
   scale_size_continuous(
     name   = "Population",
     labels = scales::label_number(scale_cut = scales::cut_short_scale()),
-    range  = c(2, 9),
+    range  = c(1, 4),
     guide  = guide_legend(override.aes = list(alpha = 1, colour = "grey60"))
   ) +
   labs(
-    x = "Cycling infrastructure (km per 1 000 residents)",
-    y = "Cycling as main mode (%)",
+    x = "Infrastructure (km per 1 000 residents)",
+    y = "Cycling mode share (%)",
     colour = "Country",
-    title  = "Cycling levels and cycling infrastructure"
+    title  = "Cycling levels vs. Infrastructure Types"
   ) +
   theme_minimal(base_size = 11) +
   theme(
     plot.title       = element_text(face = "bold"),
-    panel.grid.minor = element_blank()
+    panel.grid.minor = element_blank(),
+    legend.position  = "bottom",
+    strip.text       = element_text(face = "bold")
   )
 
 scatter_plot
 
 dir.create("figs", showWarnings = FALSE)
+ggsave("figs/scatter_plot.png", bg = "white", width = 10, height = 7)
 
-ggsave("figs/scatter_plot.png", bg = "white")
-
-# Correlation coefficient
-cor_coef <- cor(
-  plot_data$infra_km_per_1000,
-  plot_data$bike_share_pct,
-  method = "pearson",
-  use    = "complete.obs"
-)
-cor_coef^2
+# Correlation coefficients by type
+message("R-squared values by infrastructure type:")
+cor_data <- plot_data_long |>
+  group_by(infra_type_label) |>
+  summarise(
+    r_squared = round(cor(km_per_1000, bike_share_pct, use = "complete.obs")^2, 3),
+    n_cities = n()
+  )
+print(cor_data)
 ```
 
 ## Next steps
