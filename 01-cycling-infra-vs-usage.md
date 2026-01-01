@@ -98,6 +98,13 @@ if (inherits(test_result, "try-error")) {
     5 Painted lanes           0.041       56
     6 Shared footways         0.081       56
 
+The analysis reveals varying degrees of association between
+infrastructure types and cycling levels. Notably, narrow segregated
+tracks show the strongest correlation ($R^2 =$ 0.319), significantly
+higher than total infrastructure ($R^2 =$ 0.147). Off-road paths
+($R^2 =$ 0.094) and painted lanes ($R^2 =$ 0.041) show weaker
+associations.
+
 ## Next steps
 
 - Check city boundaries and cases with missing or zero cycling

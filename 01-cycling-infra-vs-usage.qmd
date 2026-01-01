@@ -310,12 +310,12 @@ get_city_metrics <- function(city_name, country_name) {
   tibble(
     country           = country_name,
     city_name         = city_name,
-    total_cycle_km    = sum(as.numeric(cyc_classified$length_m), na.rm = TRUE) / 1000,
-    off_road_km       = get_len("Off Road Path"),
-    segregated_wide_km = get_len("Segregated Track (wide)"),
-    segregated_narrow_km = get_len("Segregated Track (narrow)"),
-    painted_km        = get_len("Painted Cycle Lane"),
-    shared_footway_km = get_len("Shared Footway")
+    total_cycle_km    = round(sum(as.numeric(cyc_classified$length_m), na.rm = TRUE) / 1000, 2),
+    off_road_km       = round(get_len("Off Road Path"), 2),
+    segregated_wide_km = round(get_len("Segregated Track (wide)"), 2),
+    segregated_narrow_km = round(get_len("Segregated Track (narrow)"), 2),
+    painted_km        = round(get_len("Painted Cycle Lane"), 2),
+    shared_footway_km = round(get_len("Shared Footway"), 2)
   )
 }
 
@@ -467,6 +467,26 @@ test_countries <- c(
   "Switzerland",
   "Turkey")
 
+# Region mapping (UN Geoscheme-inspired)
+region_mapping <- c(
+  "Denmark" = "Northern", "Estonia" = "Northern", "Finland" = "Northern", 
+  "Iceland" = "Northern", "Ireland" = "Northern", "Latvia" = "Northern", 
+  "Lithuania" = "Northern", "Sweden" = "Northern", "United Kingdom" = "Northern",
+  
+  "Austria" = "Western", "Belgium" = "Western", "France" = "Western", 
+  "Germany" = "Western", "Luxembourg" = "Western", "Netherlands" = "Western", 
+  "Switzerland" = "Western",
+  
+  "Albania" = "Southern", "Croatia" = "Southern", "Cyprus" = "Southern", 
+  "Greece" = "Southern", "Italy" = "Southern", "Malta" = "Southern", 
+  "Montenegro" = "Southern", "Portugal" = "Southern", "Serbia" = "Southern", 
+  "Slovenia" = "Southern", "Spain" = "Southern", "Macedonia" = "Southern", 
+  "Turkey" = "Southern",
+  
+  "Bulgaria" = "Eastern", "Czech Republic" = "Eastern", "Hungary" = "Eastern", 
+  "Poland" = "Eastern", "Romania" = "Eastern", "Slovakia" = "Eastern"
+)
+
 test_cities <- all_cities |>
   filter(country %in% test_countries)
 
@@ -481,11 +501,13 @@ analysis_test <- test_cities |>
   ) |>
   mutate(
     bike_share_pct    = bike_prop * 100,
-    infra_km_per_1000 = total_cycle_km / (population / 1000)
-  )
+    infra_km_per_1000 = total_cycle_km / (population / 1000),
+    Region = region_mapping[country]
+  ) |>
+  mutate(Region = ifelse(is.na(Region), "Other", Region))
 
 analysis_test |>
-  select(country, city_name, population, bike_share_pct, infra_km_per_1000)
+  select(country, Region, city_name, population, bike_share_pct, infra_km_per_1000)
 ```
 
 ```{r}
@@ -527,7 +549,7 @@ scatter_plot <- ggplot(
     x      = km_per_1000,
     y      = bike_share_pct,
     size   = population,
-    colour = country
+    colour = Region
   )
 ) +
   geom_point(alpha = 0.6) +
@@ -549,7 +571,7 @@ scatter_plot <- ggplot(
   labs(
     x = "Infrastructure (km per 1 000 residents)",
     y = "Cycling mode share (%)",
-    colour = "Country",
+    colour = "Region",
     title  = "Cycling levels vs. Infrastructure Types"
   ) +
   theme_minimal(base_size = 11) +
@@ -566,15 +588,19 @@ dir.create("figs", showWarnings = FALSE)
 ggsave("figs/scatter_plot.png", bg = "white", width = 10, height = 7)
 
 # Correlation coefficients by type
-message("R-squared values by infrastructure type:")
 cor_data <- plot_data_long |>
   group_by(infra_type_label) |>
   summarise(
     r_squared = round(cor(km_per_1000, bike_share_pct, use = "complete.obs")^2, 3),
     n_cities = n()
   )
+
+# Extract for inline text
+r2_vals <- setNames(cor_data$r_squared, cor_data$infra_type_label)
 print(cor_data)
 ```
+
+The analysis reveals varying degrees of association between infrastructure types and cycling levels. Notably, narrow segregated tracks show the strongest correlation ($R^2 =$ `r r2_vals["Segregated (narrow)"]`), significantly higher than total infrastructure ($R^2 =$ `r r2_vals["Total"]`). Off-road paths ($R^2 =$ `r r2_vals["Off-road paths"]`) and painted lanes ($R^2 =$ `r r2_vals["Painted lanes"]`) show weaker associations.
 
 ## Next steps
 
