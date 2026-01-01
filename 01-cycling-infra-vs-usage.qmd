@@ -373,7 +373,8 @@ cities_all <- all_cities |>
 
 # 1. Load previous city lengths if they exist
 if (file.exists("outputs/city_lengths_all.csv")) {
-  city_lengths_all <- read_csv("outputs/city_lengths_all.csv", show_col_types = FALSE)
+  city_lengths_all <- read_csv("outputs/city_lengths_all.csv", show_col_types = FALSE) |>
+    mutate(across(where(is.numeric), ~ round(., 2)))
   cols_to_add <- c("total_road_km", "off_road_km", "segregated_wide_km", "segregated_narrow_km", "painted_km", "shared_footway_km")
   for (col in cols_to_add) {
     if (!col %in% names(city_lengths_all)) {
