@@ -144,6 +144,63 @@ get_city_polygon <- function(city, country) {
 
   if (inherits(poly, "sf")) {
     message("    Got polygon boundary for ", query)
+    
+    # FIRST: If multiple polygons returned, select the most appropriate one
+    # This must happen before any geometry operations to avoid mixed type errors
+    if (nrow(poly) > 1) {
+      message("    Multiple polygons returned (", nrow(poly), "), selecting best one...")
+      
+      # Temporarily disable S2 for area calculations on mixed geometries
+      s2_state <- sf::sf_use_s2()
+      sf::sf_use_s2(FALSE)
+      
+      # Calculate areas safely for each polygon
+      areas <- sapply(1:nrow(poly), function(i) {
+        tryCatch(as.numeric(sf::st_area(poly[i,])) / 1e6, error = function(e) NA)
+      })
+      poly$area_km2 <- areas
+      
+      sf::sf_use_s2(s2_state)
+      
+      # Prefer administrative boundaries with place_rank indicating city level
+      if ("place_rank" %in% names(poly)) {
+        city_level <- poly |> filter(place_rank >= 15 & !is.na(area_km2))
+        if (nrow(city_level) > 0) {
+          poly <- city_level[which.max(city_level$area_km2), ]
+          message("    Selected city-level polygon (place_rank >= 15): ", round(poly$area_km2, 2), " km sq")
+        } else {
+          # Fall back to polygon with area between 10-500 km² (typical city size)
+          city_sized <- poly |> filter(area_km2 >= 10 & area_km2 <= 500 & !is.na(area_km2))
+          if (nrow(city_sized) > 0) {
+            poly <- city_sized[which.max(city_sized$area_km2), ]
+            message("    Selected city-sized polygon: ", round(poly$area_km2, 2), " km sq")
+          } else {
+            # Just take the first row (usually the primary result)
+            poly <- poly[1, ]
+            message("    Using first polygon result")
+          }
+        }
+      } else {
+        # No place_rank, use area heuristics or just first row
+        city_sized <- poly |> filter(area_km2 >= 10 & area_km2 <= 500 & !is.na(area_km2))
+        if (nrow(city_sized) > 0) {
+          poly <- city_sized[which.max(city_sized$area_km2), ]
+          message("    Selected city-sized polygon: ", round(poly$area_km2, 2), " km sq")
+        } else {
+          poly <- poly[1, ]
+          message("    Using first polygon result")
+        }
+      }
+      poly$area_km2 <- NULL  # Remove temporary column
+    }
+    
+    # THEN: Ensure valid geometry (now working with single polygon)
+    poly <- tryCatch({
+      sf::st_make_valid(poly)
+    }, error = function(e) {
+      message("    Warning: st_make_valid failed, using original")
+      poly
+    })
   } else {
     message("    No polygon boundary for ", query, "; trying bounding box")
     bb <- osmdata::getbb(query)
@@ -247,15 +304,14 @@ get_city_metrics <- function(city_name, country_name) {
     osm_city <- readRDS(osm_path)
   } else {
     # Download/extract OSM for just this city area
-    # Use bounding box for robust retrieval via ogr2ogr, then clip to polygon in R
-    bbox <- sf::st_as_sfc(sf::st_bbox(poly))
+    # Use polygon directly so osmextract auto-selects correct regional PBF
     
     # Temporarily disable S2 to avoid "loop" errors with osmactive/geos
     sf::sf_use_s2(FALSE)
     osm_city <- tryCatch({
-      # We use place = country_name to ensure correct PBF selection
-      # We use boundary = bbox to ensure robust clipping
-      net <- osmactive::get_travel_network(place = country_name, boundary = bbox)
+      # Use place = poly so osmextract finds the right sub-region PBF file
+      # (e.g., île-de-france for Paris instead of all of France)
+      net <- osmactive::get_travel_network(place = poly)
       if (!is.null(net)) {
         # Now clip to exact polygon
         sf::st_intersection(net, poly)
