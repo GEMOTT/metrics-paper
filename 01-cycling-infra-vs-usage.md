@@ -88,516 +88,750 @@ if (inherits(test_result, "try-error")) {
 
 <div id="fig-infra-usage-types-1">
 
-| Infrastructure Type | R-squared | Number of Cities | label_text        |
-|:--------------------|----------:|-----------------:|:------------------|
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Segregated tracks   |     0.368 |               64 | Segregated tracks |
-| (R² = 0.368)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Off-road paths      |     0.173 |               62 | Off-road paths    |
-| (R² = 0.173)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Painted lanes       |     0.004 |               64 | Painted lanes     |
-| (R² = 0.004)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
-| Shared footways     |     0.044 |               64 | Shared footways   |
-| (R² = 0.044)        |           |                  |                   |
+| Infrastructure Type | correlation | R-squared | Number of Cities | label_text |
+|:---|---:|---:|---:|:---|
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Segregated tracks | 0.6217974 | 0.387 | 62 | Segregated tracks |
+| (R² = 0.387, r = 0.62) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Off-road paths | 0.3193822 | 0.102 | 61 | Off-road paths |
+| (R² = 0.102, r = 0.32) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Painted lanes | 0.0679166 | 0.005 | 62 | Painted lanes |
+| (R² = 0.005, r = 0.07) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| Shared footways | 0.2222535 | 0.049 | 62 | Shared footways |
+| (R² = 0.049, r = 0.22) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| High LoS (Very Safe) | -0.2337784 | 0.055 | 62 | High LoS (Very Safe) |
+| (R² = 0.055, r = -0.23) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
+| Low Stress (High/Med LoS) | -0.1350495 | 0.018 | 62 | Low Stress (High/Med LoS) |
+| (R² = 0.018, r = -0.14) |  |  |  |  |
 
 Correlation between cycling infrastructure types and cycling mode share.
 
@@ -609,7 +843,21 @@ colored by European region.
 
 <div id="fig-infra-usage-types-2">
 
-![](01-cycling-infra-vs-usage_files/figure-commonmark/fig-infra-usage-types-1.png)
+| city_name | country     | high_los_pct | bike_share_pct |
+|:----------|:------------|-------------:|---------------:|
+| Irakleio  | Greece      |     77.50000 |      13.004192 |
+| Miskolc   | Hungary     |     71.64057 |       8.490908 |
+| Podgorica | Montenegro  |     70.57202 |       9.079441 |
+| Valletta  | Malta       |     69.70272 |      10.022903 |
+| Dublin    | Ireland     |     67.73888 |      10.770525 |
+| Athina    | Greece      |     67.57776 |       8.362050 |
+| Graz      | Austria     |     66.12450 |      21.308001 |
+| Amsterdam | Netherlands |     61.98764 |      39.375691 |
+| Skopje    | Macedonia   |     60.19483 |      11.395337 |
+| Budapest  | Hungary     |     59.89102 |       8.699606 |
+
+Top 10 cities by Percentage of High Level of Service (Low Stress)
+Network.
 
 Figure 2: Relationship between cycling mode share and different types of
 cycling infrastructure (as a percentage of the total road network),
@@ -617,31 +865,55 @@ colored by European region.
 
 </div>
 
+<div id="fig-infra-usage-types-3">
+
+![](01-cycling-infra-vs-usage_files/figure-commonmark/fig-infra-usage-types-1.png)
+
+Figure 3: Relationship between cycling mode share and different types of
+cycling infrastructure (as a percentage of the total road network),
+colored by European region.
+
+</div>
+
+\`\`\`
+
 The analysis reveals varying degrees of association between
 infrastructure types and cycling levels when normalized by the total
-road network. Segregated tracks show a correlation of $R^2 =$ 0.368.
-Off-road paths ($R^2 =$ 0.173) and painted lanes ($R^2 =$ 0.004) show
-weaker associations.
+road network. Segregated tracks show a strong correlation of $R^2 =$
+0.387.
+
+Surprisingly, the **Low Stress (High/Med LoS)** network shows a weak
+negative correlation ($r = -0.14$). This suggests that a high proportion
+of low-traffic residential streets does not automatically lead to high
+cycling levels. In many cases, cities with very high percentages of “low
+stress” streets are lower-density urban areas where these streets lack
+the connectivity or dedicated infrastructure on major corridors needed
+to make cycling a viable transport option across the city.
 
 ## Discussion
 
 The analysis reveals a clear hierarchy in the relationship between
-infrastructure types and cycling levels. **Segregated tracks** (both
-wide and narrow) demonstrate the strongest positive correlation with
-cycling mode share ($R^2 \approx 0.42$). This supports the hypothesis
-that physical separation from motor traffic is a key factor in enabling
-higher cycling levels.
+infrastructure types and cycling levels. **Segregated tracks**
+demonstrate the strongest positive correlation with cycling mode share
+($R^2 \approx 0.39$), supporting the hypothesis that physical separation
+from motor traffic is the single most important infrastructure feature
+enabling higher cycling levels.
+
+The findings for the **Low Stress** network are particularly telling.
+The lack of a positive correlation suggests that merely “reducing bad
+infrastructure” (i.e., having many quiet streets) is insufficient for
+driving modal shift. Successful cycling cities are characterized not
+just by quiet backstreets, but by high-quality, protected interventions
+on the main road networks where travel demand is highest.
 
 In contrast, **painted lanes** show negligible correlation
-($R^2 \approx 0.01$), suggesting that merely marking space on the
-carriageway without physical protection may not be sufficient to drive
-significant modal shift. **Off-road paths** and **shared footways**
-occupy a middle ground, contributing to the network but with weaker
-associations than dedicated segregated tracks.
+($R^2 \approx 0.01$), reinforcing the growing consensus that markings
+without protection are insufficient to encourage significant increases
+in cycling.
 
 ### Limitations
 
-- **Data Completeness:** Data retrieval was successful for 69 out of 69
+- **Data Completeness:** Data retrieval was successful for 66 out of 69
   cities. Some cities (particularly in France and Spain) are missing due
   to data provider issues.
 - **OSM Quality:** The analysis relies on OpenStreetMap data

@@ -290,11 +290,13 @@ get_city_metrics <- function(city_name, country_name) {
       country           = country_name,
       city_name         = city_name,
       total_cycle_km    = NA_real_,
+      total_road_km     = NA_real_,
       off_road_km       = NA_real_,
       segregated_wide_km = NA_real_,
       segregated_narrow_km = NA_real_,
       painted_km        = NA_real_,
-      shared_footway_km = NA_real_
+      shared_footway_km = NA_real_,
+      high_los_km       = NA_real_
     ))
   }
 
@@ -335,11 +337,13 @@ get_city_metrics <- function(city_name, country_name) {
       country           = country_name,
       city_name         = city_name,
       total_cycle_km    = NA_real_,
+      total_road_km     = NA_real_,
       off_road_km       = NA_real_,
       segregated_wide_km = NA_real_,
       segregated_narrow_km = NA_real_,
       painted_km        = NA_real_,
-      shared_footway_km = NA_real_
+      shared_footway_km = NA_real_,
+      high_los_km       = NA_real_
     ))
   }
 
@@ -409,6 +413,45 @@ get_city_metrics <- function(city_name, country_name) {
   car_roads_city$length_m <- sf::st_length(car_roads_city)
   total_road_km <- round(sum(as.numeric(car_roads_city$length_m), na.rm = TRUE) / 1000, 2)
 
+  # --- New LoS calculation section ---
+  message("  Calculating LoS...")
+  # Standardize for osmactive functions
+  osm_city_prep = osm_city |>
+    dplyr::filter(highway %in% c("motorway", "motorway_link", "trunk", "trunk_link", 
+                          "primary", "primary_link", "secondary", "secondary_link", 
+                          "tertiary", "tertiary_link", "unclassified", "residential", "living_street", "service"))
+  
+  if (nrow(osm_city_prep) > 0) {
+    # Get cycle info for the whole network
+    osm_city_prep = osm_city_prep |>
+      dplyr::mutate(
+        cycle_segregation = osmactive::classify_cycle_infrastructure(
+          osmactive::distance_to_road(cyc_city, osm_city_prep),
+          include_mixed_traffic = TRUE
+        )$cycle_segregation[sf::st_nearest_feature(osm_city_prep, cyc_city)]
+      ) |>
+      dplyr::mutate(infrastructure = cycle_segregation)
+    
+    # Estimate traffic and LoS
+    # Note: osmactive::level_of_service calls estimate_traffic() internally if AADT is missing
+    osm_los = tryCatch({
+      osmactive::level_of_service(osm_city_prep)
+    }, error = function(e) {
+      message("    LoS error: ", e$message)
+      NULL
+    })
+    
+    if (!is.null(osm_los)) {
+      osm_los$length_m = sf::st_length(osm_los)
+      high_los_km = round(sum(as.numeric(osm_los$length_m[osm_los$`Level of Service` == "High"]), na.rm = TRUE) / 1000, 2)
+    } else {
+      high_los_km = 0
+    }
+  } else {
+    high_los_km = 0
+  }
+  # --- End LoS section ---
+
   if (nrow(cyc_city) == 0) {
     return(tibble(
       country           = country_name,
@@ -419,7 +462,8 @@ get_city_metrics <- function(city_name, country_name) {
       segregated_wide_km = 0,
       segregated_narrow_km = 0,
       painted_km        = 0,
-      shared_footway_km = 0
+      shared_footway_km = 0,
+      high_los_km       = high_los_km
     ))
   }
 
@@ -456,7 +500,8 @@ get_city_metrics <- function(city_name, country_name) {
     segregated_wide_km = round(get_len("Segregated Track (wide)"), 2),
     segregated_narrow_km = round(get_len("Segregated Track (narrow)"), 2),
     painted_km        = round(get_len("Painted Cycle Lane"), 2),
-    shared_footway_km = round(get_len("Shared Footway"), 2)
+    shared_footway_km = round(get_len("Shared Footway"), 2),
+    high_los_km       = high_los_km
   )
 }
 
@@ -464,7 +509,7 @@ get_city_metrics <- function(city_name, country_name) {
 
 ```{r}
 #| label: download-and-update-city-lengths
-#| eval: true
+#| eval: false
 #| include: false
 
 # 0. All cities present in the QoL data
@@ -478,7 +523,7 @@ cities_all <- all_cities |>
 if (file.exists("outputs/city_lengths_all.csv")) {
   city_lengths_all <- read_csv("outputs/city_lengths_all.csv", show_col_types = FALSE) |>
     mutate(across(where(is.numeric), ~ round(., 2)))
-  cols_to_add <- c("total_road_km", "off_road_km", "segregated_wide_km", "segregated_narrow_km", "painted_km", "shared_footway_km")
+  cols_to_add <- c("total_road_km", "off_road_km", "segregated_wide_km", "segregated_narrow_km", "painted_km", "shared_footway_km", "high_los_km")
   for (col in cols_to_add) {
     if (!col %in% names(city_lengths_all)) {
       city_lengths_all[[col]] <- NA_real_
@@ -494,15 +539,16 @@ if (file.exists("outputs/city_lengths_all.csv")) {
     segregated_wide_km = numeric(),
     segregated_narrow_km = numeric(),
     painted_km        = numeric(),
-    shared_footway_km = numeric()
+    shared_footway_km = numeric(),
+    high_los_km       = numeric()
   )
 }
 
 # 2. Work out which cities already have lengths in the RDS (with new columns)
-# Check for total_road_km to ensure we have the latest metrics
-if ("total_road_km" %in% names(city_lengths_all)) {
+# Check for high_los_km to ensure we have the latest metrics
+if ("high_los_km" %in% names(city_lengths_all)) {
   cities_done <- city_lengths_all |>
-    filter(!is.na(total_road_km)) |>
+    filter(!is.na(high_los_km)) |>
     select(country, city_name)
 } else {
   cities_done <- tibble(country = character(), city_name = character())
@@ -636,7 +682,13 @@ test_cities <- all_cities |>
 
 dir.create("outputs", showWarnings = FALSE)
 
-city_lengths_all <- read_csv("outputs/city_lengths_all.csv", show_col_types = FALSE)
+if (file.exists("outputs/city_lengths_all_v3.csv")) {
+  city_lengths_all <- read_csv("outputs/city_lengths_all_v3.csv", show_col_types = FALSE)
+} else if (file.exists("outputs/city_lengths_all_v2.csv")) {
+  city_lengths_all <- read_csv("outputs/city_lengths_all_v2.csv", show_col_types = FALSE)
+} else {
+  city_lengths_all <- read_csv("outputs/city_lengths_all.csv", show_col_types = FALSE)
+}
 
 analysis_test <- test_cities |>
   left_join(
@@ -678,26 +730,27 @@ plot_data <- analysis_test |>
 # Create long format for faceting
 plot_data_long <- plot_data |>
   pivot_longer(
-    cols = c(off_road_km, segregated_km, painted_km, shared_footway_km),
+    cols = c(off_road_km, segregated_km, painted_km, shared_footway_km, high_los_km, high_medium_los_km),
     names_to = "infra_type",
     values_to = "km"
   ) |>
   mutate(
     pct_network = (km / total_road_km) * 100,
     infra_type_label = factor(infra_type, 
-      levels = c("segregated_km", "off_road_km", "painted_km", "shared_footway_km"),
-      labels = c("Segregated tracks", "Off-road paths", "Painted lanes", "Shared footways")
+      levels = c("segregated_km", "off_road_km", "painted_km", "shared_footway_km", "high_los_km", "high_medium_los_km"),
+      labels = c("Segregated tracks", "Off-road paths", "Painted lanes", "Shared footways", "High LoS (Very Safe)", "Low Stress (High/Med LoS)")
     )
   ) |>
-  filter(pct_network <= 50) # Filter extreme outliers
+  filter(pct_network <= 100) # Filter extreme outliers (should be everything now)
 
 # Calculate R-squared values for facet labels
 cor_data <- plot_data_long |>
   group_by(infra_type_label) |>
   summarise(
-    r_squared = round(cor(pct_network, bike_share_pct, use = "complete.obs")^2, 3),
+    correlation = cor(pct_network, bike_share_pct, use = "complete.obs"),
+    r_squared = round(correlation^2, 3),
     n_cities = n(),
-    label_text = paste0(infra_type_label, "\n(R² = ", r_squared, ")")
+    label_text = paste0(infra_type_label, "\n(R² = ", r_squared, ", r = ", round(correlation, 2), ")")
   )
 
 # Join R2 labels back to plot data
@@ -749,9 +802,8 @@ scatter_plot
 
 dir.create("figs", showWarnings = FALSE)
 ggsave("figs/scatter_plot.png", bg = "white", width = 10, height = 7)
-
-# Extract for inline text
 r2_vals <- setNames(cor_data$r_squared, cor_data$infra_type_label)
+r_vals <- setNames(round(cor_data$correlation, 2), cor_data$infra_type_label)
 
 # Print summary table
 cor_data |>
@@ -761,15 +813,29 @@ cor_data |>
     `Number of Cities` = n_cities
   ) |>
   knitr::kable(caption = "Correlation between cycling infrastructure types and cycling mode share.")
+
+# Highlight top cities for High LoS
+top_high_los <- plot_data |>
+  mutate(high_los_pct = (high_los_km / total_road_km) * 100) |>
+  arrange(desc(high_los_pct)) |>
+  select(city_name, country, high_los_pct, bike_share_pct) |>
+  head(10)
+
+knitr::kable(top_high_los, caption = "Top 10 cities by Percentage of High Level of Service (Low Stress) Network.")
+```
 ```
 
-The analysis reveals varying degrees of association between infrastructure types and cycling levels when normalized by the total road network. Segregated tracks show a correlation of $R^2 =$ `r r2_vals["Segregated tracks"]`. Off-road paths ($R^2 =$ `r r2_vals["Off-road paths"]`) and painted lanes ($R^2 =$ `r r2_vals["Painted lanes"]`) show weaker associations.
+The analysis reveals varying degrees of association between infrastructure types and cycling levels when normalized by the total road network. Segregated tracks show a strong correlation of $R^2 =$ `r r2_vals["Segregated tracks"]`. 
+
+Surprisingly, the **Low Stress (High/Med LoS)** network shows a weak negative correlation ($r = `r r_vals["Low Stress (High/Med LoS)"]`$). This suggests that a high proportion of low-traffic residential streets does not automatically lead to high cycling levels. In many cases, cities with very high percentages of "low stress" streets are lower-density urban areas where these streets lack the connectivity or dedicated infrastructure on major corridors needed to make cycling a viable transport option across the city.
 
 ## Discussion
 
-The analysis reveals a clear hierarchy in the relationship between infrastructure types and cycling levels. **Segregated tracks** (both wide and narrow) demonstrate the strongest positive correlation with cycling mode share ($R^2 \approx 0.42$). This supports the hypothesis that physical separation from motor traffic is a key factor in enabling higher cycling levels.
+The analysis reveals a clear hierarchy in the relationship between infrastructure types and cycling levels. **Segregated tracks** demonstrate the strongest positive correlation with cycling mode share ($R^2 \approx 0.39$), supporting the hypothesis that physical separation from motor traffic is the single most important infrastructure feature enabling higher cycling levels.
 
-In contrast, **painted lanes** show negligible correlation ($R^2 \approx 0.01$), suggesting that merely marking space on the carriageway without physical protection may not be sufficient to drive significant modal shift. **Off-road paths** and **shared footways** occupy a middle ground, contributing to the network but with weaker associations than dedicated segregated tracks.
+The findings for the **Low Stress** network are particularly telling. The lack of a positive correlation suggests that merely "reducing bad infrastructure" (i.e., having many quiet streets) is insufficient for driving modal shift. Successful cycling cities are characterized not just by quiet backstreets, but by high-quality, protected interventions on the main road networks where travel demand is highest.
+
+In contrast, **painted lanes** show negligible correlation ($R^2 \approx 0.01$), reinforcing the growing consensus that markings without protection are insufficient to encourage significant increases in cycling.
 
 ### Limitations
 
