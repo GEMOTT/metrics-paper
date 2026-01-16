@@ -871,6 +871,23 @@ top_high_los <- plot_data |>
 knitr::include_graphics("figs/scatter_plot.png")
 ```
 
+```{r}
+#| label: analysis-standardized
+#| include: false
+if (file.exists("outputs/city_lengths_standardized.csv")) {
+  standard_analysis <- read_csv("outputs/city_lengths_standardized.csv", show_col_types = FALSE) |>
+    left_join(all_cities, by = c("country", "city_name")) |>
+    mutate(
+      bike_share_pct = bike_prop * 100,
+      pct_segregated = (segregated_km / total_road_km) * 100
+    )
+  
+  cor_standard <- cor(standard_analysis$pct_segregated, standard_analysis$bike_share_pct, use = "complete.obs")^2
+} else {
+  cor_standard <- NA
+}
+```
+
 The analysis reveals varying degrees of association between infrastructure types and cycling levels when normalized by the total road network.
 
 ```{r}
@@ -908,6 +925,10 @@ In contrast, **painted lanes** show negligible correlation ($R^2 \approx `r roun
 ## Conclusion
 
 This preliminary analysis suggests that cities aiming to increase cycling mode share should prioritize the development of **segregated cycling infrastructure**. While paint and shared paths provide connectivity, they do not show the same strong relationship with high cycling usage observed for physically separated tracks. Future work should focus on network connectivity metrics and control for other factors like topography and climate.
+
+### Standardized vs. Administrative Boundaries
+
+Preliminary testing with standardized Urban Centre boundaries (derived from the `giscoR` implementation of DEGURBA/flexurba definitions) for `r nrow(standard_analysis)` cities shows a correlation ($R^2$) for segregated infrastructure of `r round(cor_standard, 2)`. This suggests that the signal is robust across different boundary definitions, though standardized boundaries often yield lower total road lengths by excluding low-density suburban peripheries.
 
 ## Next steps
 

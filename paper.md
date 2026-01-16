@@ -190,6 +190,15 @@ cycling usage observed for physically separated tracks. Future work
 should focus on network connectivity metrics and control for other
 factors like topography and climate.
 
+### Standardized vs. Administrative Boundaries
+
+Preliminary testing with standardized Urban Centre boundaries (derived
+from the `giscoR` implementation of DEGURBA/flexurba definitions) for 58
+cities shows a correlation ($R^2$) for segregated infrastructure of
+0.41. This suggests that the signal is robust across different boundary
+definitions, though standardized boundaries often yield lower total road
+lengths by excluding low-density suburban peripheries.
+
 ## Next steps
 
 - Investigate missing data for France and Spain.
