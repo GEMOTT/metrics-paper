@@ -7,6 +7,7 @@ execute:
 ---
 
 This repo contains reproducible code to support a paper on measuring cycling network quality.
+You can read the rendered version of the paper in [paper.md](paper.md).
 
 The aim is to compare different ways of measuring cycle network quality between major cities and to evaluate these measures against actual cycling usage data.
 
