@@ -35,7 +35,16 @@
   allowed), providing a simple city-level proxy for cycling use. There
   are previous editions.
 
-- Create exploratory scatter plots to see associations.
+- **Standardized City Boundaries:** To ensure comparability, we explored
+  using standardized urban boundaries. While administrative boundaries
+  (retrieved from OpenStreetMap) are often inconsistent in geographic
+  extent, methodologies such as the Degree of Urbanisation (DEGURBA),
+  implemented in R packages like `flexurba` and `giscoR`, provide a way
+  to define cities based on population density thresholds (e.g., Urban
+  Centres or Functional Urban Areas). In this preliminary analysis, we
+  use administrative boundaries but apply a clipping heuristic for very
+  large areas (\>1000 km²) and discuss future moves towards using
+  `gisco_get_urban_audit()` for FUA-level analysis.
 
 <!-- ### Potential cycling-use datasets -->
 
@@ -118,21 +127,21 @@ and cycling mode share.
 
 | Metric                    | Cities (n) | Correlation (r) | R-squared |
 |:--------------------------|-----------:|----------------:|----------:|
-| Segregated tracks         |         62 |           0.645 |     0.416 |
-| Shared footways           |         62 |           0.277 |     0.077 |
-| Off-road paths            |         62 |           0.120 |     0.014 |
-| Painted lanes             |         62 |           0.078 |     0.006 |
-| Low Stress (High/Med LoS) |         62 |          -0.178 |     0.032 |
-| High LoS (Very Safe)      |         62 |          -0.209 |     0.044 |
+| Segregated tracks         |         75 |           0.616 |     0.380 |
+| Shared footways           |         75 |           0.309 |     0.095 |
+| Off-road paths            |         75 |           0.128 |     0.016 |
+| Painted lanes             |         75 |           0.080 |     0.006 |
+| Low Stress (High/Med LoS) |         75 |          -0.153 |     0.024 |
+| High LoS (Very Safe)      |         75 |          -0.182 |     0.033 |
 
 </div>
 
 </div>
 
-Segregated tracks show a strong correlation of $R^2 =$ 0.42.
+Segregated tracks show a strong correlation of $R^2 =$ 0.38.
 
 Surprisingly, the **Low Stress (High/Med LoS)** network shows a weak
-negative correlation ($r = -0.18$). This suggests that a high proportion
+negative correlation ($r = -0.15$). This suggests that a high proportion
 of low-traffic residential streets does not automatically lead to high
 cycling levels. In many cases, cities with very high percentages of “low
 stress” streets are lower-density urban areas where these streets lack
@@ -144,7 +153,7 @@ to make cycling a viable transport option across the city.
 The analysis reveals a clear hierarchy in the relationship between
 infrastructure types and cycling levels. **Segregated tracks**
 demonstrate the strongest positive correlation with cycling mode share
-($R^2 \approx 0.42$), supporting the hypothesis that physical separation
+($R^2 \approx 0.38$), supporting the hypothesis that physical separation
 from motor traffic is the single most important infrastructure feature
 enabling higher cycling levels.
 
@@ -162,7 +171,7 @@ in cycling.
 
 ### Limitations
 
-- **Data Completeness:** Data retrieval was successful for 69 out of 69
+- **Data Completeness:** Data retrieval was successful for 82 out of 83
   cities. Some cities (particularly in France and Spain) are missing due
   to data provider issues.
 - **OSM Quality:** The analysis relies on OpenStreetMap data

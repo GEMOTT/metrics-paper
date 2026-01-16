@@ -28,7 +28,7 @@ execute:
     ), where cycling is one of the selectable modes (up to two choices allowed), providing a simple city-level proxy for cycling use.
     There are previous editions.
 
--   Create exploratory scatter plots to see associations.
+- **Standardized City Boundaries:** To ensure comparability, we explored using standardized urban boundaries. While administrative boundaries (retrieved from OpenStreetMap) are often inconsistent in geographic extent, methodologies such as the Degree of Urbanisation (DEGURBA), implemented in R packages like `flexurba` and `giscoR`, provide a way to define cities based on population density thresholds (e.g., Urban Centres or Functional Urban Areas). In this preliminary analysis, we use administrative boundaries but apply a clipping heuristic for very large areas (>1000 km²) and discuss future moves towards using `gisco_get_urban_audit()` for FUA-level analysis.
 
 <!-- ### Potential cycling-use datasets -->
 
@@ -678,13 +678,17 @@ test_countries <- c(
   "Spain",
   "Sweden",
   "Switzerland",
-  "Turkey")
+  "Turkey",
+  "Germany",
+  "United Kingdom",
+  "Norway")
 
 # Region mapping (UN Geoscheme-inspired)
 region_mapping <- c(
   "Denmark" = "Northern", "Estonia" = "Northern", "Finland" = "Northern", 
   "Iceland" = "Northern", "Ireland" = "Northern", "Latvia" = "Northern", 
   "Lithuania" = "Northern", "Sweden" = "Northern", "United Kingdom" = "Northern",
+  "Norway" = "Northern",
   
   "Austria" = "Western", "Belgium" = "Western", "France" = "Western", 
   "Germany" = "Western", "Luxembourg" = "Western", "Netherlands" = "Western", 
