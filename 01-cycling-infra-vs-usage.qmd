@@ -1,9 +1,12 @@
 ---
 title: "Preliminary cycling infra vs usage analysis"
 format: gfm
+execute: 
+  echo: false
+  message: false
+  warning: false
+  cache: true
 ---
-
-test
 
 ## Introduction
 
@@ -116,9 +119,6 @@ if (!dir.exists("/media/eugeni/Extrem SSD/my-stuff/metrics-paper/data")) {
 } else {
   cache_dir <- "/media/eugeni/Extrem SSD/my-stuff/metrics-paper/data/osm_cache"
 }
-
-
-
 ```
 
 ```{r}
@@ -618,6 +618,24 @@ if (inherits(test_result, "try-error")) {
 }
 ```
 
+```{r}
+#| label: tbl-qol-cities
+top_3 <- all_cities |> head(3)
+bottom_3 <- all_cities |> tail(3)
+middle_rows_indices = 4:(nrow(all_cities) - 3)
+middle_rows <- all_cities[middle_rows_indices, ]
+set.seed(42)
+middle_3 <- middle_rows |>
+  ungroup() |>
+  sample_n(3)
+
+bind_rows(top_3, middle_3, bottom_3) |>
+  arrange(desc(bike_prop)) |>
+  mutate(bike_prop = scales::percent(bike_prop, accuracy = 0.1)) |>
+  select(country, city_name, bike_prop, sample_size = total_sample) |>
+  knitr::kable(caption = "Top 3, bottom 3 and 3 random middle cities by cycling levels")
+```
+
 ## Results
 
 ```{r}
@@ -731,6 +749,20 @@ plot_data <- analysis_test |>
 
 # Create long format for faceting
 plot_data_long <- plot_data |>
+  # Select relevant columns
+  transmute(
+    city_name,
+    Region,
+    bike_share_pct,
+    population,
+    total_road_km,
+    off_road_km,
+    segregated_km,
+    painted_km,
+    shared_footway_km,
+    high_los_km,
+    high_medium_los_km = high_los_km + painted_km
+  ) |>
   pivot_longer(
     cols = c(off_road_km, segregated_km, painted_km, shared_footway_km, high_los_km, high_medium_los_km),
     names_to = "infra_type",
@@ -742,22 +774,31 @@ plot_data_long <- plot_data |>
       levels = c("segregated_km", "off_road_km", "painted_km", "shared_footway_km", "high_los_km", "high_medium_los_km"),
       labels = c("Segregated tracks", "Off-road paths", "Painted lanes", "Shared footways", "High LoS (Very Safe)", "Low Stress (High/Med LoS)")
     )
-  ) |>
-  filter(pct_network <= 100) # Filter extreme outliers (should be everything now)
+  )
 
-# Calculate R-squared values for facet labels
+# Calculate R-squared values associated with each infrastructure type with dplyr nest/map
 cor_data <- plot_data_long |>
   group_by(infra_type_label) |>
   summarise(
+    n_cities   = n(),
     correlation = cor(pct_network, bike_share_pct, use = "complete.obs"),
-    r_squared = round(correlation^2, 3),
-    n_cities = n(),
-    label_text = paste0(infra_type_label, "\n(R² = ", r_squared, ", r = ", round(correlation, 2), ")")
-  )
+    r_squared  = cor(pct_network, bike_share_pct, use = "complete.obs")^2
+  ) |>
+  ungroup()
+
+cor_data_labels <- cor_data |>
+  mutate(
+    label_text = paste0(
+      infra_type_label, "\n",
+      "R² = ", round(r_squared, 2), 
+      " (n = ", n_cities, ")"
+    )
+  ) |>
+  select(infra_type_label, label_text)
 
 # Join R2 labels back to plot data
 plot_data_long <- plot_data_long |>
-  left_join(cor_data, by = "infra_type_label")
+  left_join(cor_data_labels, by = "infra_type_label")
 
 set.seed(123)
 
@@ -800,21 +841,12 @@ scatter_plot <- ggplot(
     strip.text       = element_text(face = "bold")
   )
 
-scatter_plot
+# scatter_plot
 
 dir.create("figs", showWarnings = FALSE)
 ggsave("figs/scatter_plot.png", bg = "white", width = 10, height = 7)
 r2_vals <- setNames(cor_data$r_squared, cor_data$infra_type_label)
 r_vals <- setNames(round(cor_data$correlation, 2), cor_data$infra_type_label)
-
-# Print summary table
-cor_data |>
-  rename(
-    `Infrastructure Type` = infra_type_label,
-    `R-squared` = r_squared,
-    `Number of Cities` = n_cities
-  ) |>
-  knitr::kable(caption = "Correlation between cycling infrastructure types and cycling mode share.")
 
 # Highlight top cities for High LoS
 top_high_los <- plot_data |>
@@ -823,8 +855,15 @@ top_high_los <- plot_data |>
   select(city_name, country, high_los_pct, bike_share_pct) |>
   head(10)
 
-knitr::kable(top_high_los, caption = "Top 10 cities by Percentage of High Level of Service (Low Stress) Network.")
+# It's showing Irakleio as highest by high LoS
+# TODO: investigate why
+# knitr::kable(top_high_los, caption = "Top 10 cities by Percentage of High Level of Service (Low Stress) Network.")
 ```
+
+```{r}
+#| label: fig-scatter-plot
+#| fig-cap: "Scatter plots showing the relationship between cycling mode share and different types of cycling infrastructure (as a percentage of the total road network), colored by European region."
+knitr::include_graphics("figs/scatter_plot.png")
 ```
 
 The analysis reveals varying degrees of association between infrastructure types and cycling levels when normalized by the total road network. Segregated tracks show a strong correlation of $R^2 =$ `r r2_vals["Segregated tracks"]`. 
