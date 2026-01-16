@@ -514,7 +514,7 @@ get_city_metrics <- function(city_name, country_name) {
 
 ```{r}
 #| label: download-and-update-city-lengths
-#| eval: false
+#| eval: true
 #| include: false
 
 # 0. All cities present in the QoL data
