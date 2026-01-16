@@ -358,10 +358,12 @@ get_city_metrics <- function(city_name, country_name) {
     cyc_city <- osmactive::get_cycling_network(osm_city)
     
     # Identify car roads for distance calculation (from the same city extract)
+    # Including living_street and service for consistency with LoS calculation
     car_roads_city <- osm_city |>
       filter(highway %in% c("motorway", "motorway_link", "trunk", "trunk_link", 
                             "primary", "primary_link", "secondary", "secondary_link", 
-                            "tertiary", "tertiary_link", "unclassified", "residential"))
+                            "tertiary", "tertiary_link", "unclassified", "residential",
+                            "living_street", "service"))
   
     # Calculate distance to nearest road
     if (nrow(cyc_city) > 0) {
@@ -394,7 +396,8 @@ get_city_metrics <- function(city_name, country_name) {
         car_roads_city <- osm_city |>
           filter(highway %in% c("motorway", "motorway_link", "trunk", "trunk_link", 
                                 "primary", "primary_link", "secondary", "secondary_link", 
-                                "tertiary", "tertiary_link", "unclassified", "residential"))
+                                "tertiary", "tertiary_link", "unclassified", "residential",
+                                "living_street", "service"))
      } else {
        # Should have been created/loaded above?
        # The logic above: if cycle_path exists, it DOES NOT load OSM.
@@ -702,12 +705,10 @@ test_cities <- all_cities |>
 
 dir.create("outputs", showWarnings = FALSE)
 
-if (file.exists("outputs/city_lengths_all_v3.csv")) {
-  city_lengths_all <- read_csv("outputs/city_lengths_all_v3.csv", show_col_types = FALSE)
-} else if (file.exists("outputs/city_lengths_all_v2.csv")) {
-  city_lengths_all <- read_csv("outputs/city_lengths_all_v2.csv", show_col_types = FALSE)
-} else {
+if (file.exists("outputs/city_lengths_all.csv")) {
   city_lengths_all <- read_csv("outputs/city_lengths_all.csv", show_col_types = FALSE)
+} else {
+  stop("Missing city_lengths_all.csv")
 }
 
 analysis_test <- test_cities |>
@@ -866,17 +867,33 @@ top_high_los <- plot_data |>
 knitr::include_graphics("figs/scatter_plot.png")
 ```
 
-The analysis reveals varying degrees of association between infrastructure types and cycling levels when normalized by the total road network. Segregated tracks show a strong correlation of $R^2 =$ `r r2_vals["Segregated tracks"]`. 
+The analysis reveals varying degrees of association between infrastructure types and cycling levels when normalized by the total road network.
+
+```{r}
+#| label: tbl-correlations
+#| tbl-cap: "Correlation between different cycling infrastructure measures and cycling mode share."
+cor_data |>
+  arrange(desc(correlation)) |>
+  transmute(
+    Metric = infra_type_label,
+    `Cities (n)` = n_cities,
+    `Correlation (r)` = round(correlation, 3),
+    `R-squared` = round(r_squared, 3)
+  ) |>
+  knitr::kable()
+```
+
+Segregated tracks show a strong correlation of $R^2 =$ `r round(r2_vals["Segregated tracks"], 2)`. 
 
 Surprisingly, the **Low Stress (High/Med LoS)** network shows a weak negative correlation ($r = `r r_vals["Low Stress (High/Med LoS)"]`$). This suggests that a high proportion of low-traffic residential streets does not automatically lead to high cycling levels. In many cases, cities with very high percentages of "low stress" streets are lower-density urban areas where these streets lack the connectivity or dedicated infrastructure on major corridors needed to make cycling a viable transport option across the city.
 
 ## Discussion
 
-The analysis reveals a clear hierarchy in the relationship between infrastructure types and cycling levels. **Segregated tracks** demonstrate the strongest positive correlation with cycling mode share ($R^2 \approx 0.39$), supporting the hypothesis that physical separation from motor traffic is the single most important infrastructure feature enabling higher cycling levels.
+The analysis reveals a clear hierarchy in the relationship between infrastructure types and cycling levels. **Segregated tracks** demonstrate the strongest positive correlation with cycling mode share ($R^2 \approx `r round(r2_vals["Segregated tracks"], 2)`$), supporting the hypothesis that physical separation from motor traffic is the single most important infrastructure feature enabling higher cycling levels.
 
 The findings for the **Low Stress** network are particularly telling. The lack of a positive correlation suggests that merely "reducing bad infrastructure" (i.e., having many quiet streets) is insufficient for driving modal shift. Successful cycling cities are characterized not just by quiet backstreets, but by high-quality, protected interventions on the main road networks where travel demand is highest.
 
-In contrast, **painted lanes** show negligible correlation ($R^2 \approx 0.01$), reinforcing the growing consensus that markings without protection are insufficient to encourage significant increases in cycling.
+In contrast, **painted lanes** show negligible correlation ($R^2 \approx `r round(r2_vals["Painted lanes"], 2)`$), reinforcing the growing consensus that markings without protection are insufficient to encourage significant increases in cycling.
 
 ### Limitations
 

@@ -107,11 +107,32 @@ the total road network), colored by European region.
 
 The analysis reveals varying degrees of association between
 infrastructure types and cycling levels when normalized by the total
-road network. Segregated tracks show a strong correlation of $R^2 =$
-0.386632.
+road network.
+
+<div id="tbl-correlations">
+
+Table 2: Correlation between different cycling infrastructure measures
+and cycling mode share.
+
+<div class="cell-output-display">
+
+| Metric                    | Cities (n) | Correlation (r) | R-squared |
+|:--------------------------|-----------:|----------------:|----------:|
+| Segregated tracks         |         62 |           0.645 |     0.416 |
+| Shared footways           |         62 |           0.277 |     0.077 |
+| Off-road paths            |         62 |           0.120 |     0.014 |
+| Painted lanes             |         62 |           0.078 |     0.006 |
+| Low Stress (High/Med LoS) |         62 |          -0.178 |     0.032 |
+| High LoS (Very Safe)      |         62 |          -0.209 |     0.044 |
+
+</div>
+
+</div>
+
+Segregated tracks show a strong correlation of $R^2 =$ 0.42.
 
 Surprisingly, the **Low Stress (High/Med LoS)** network shows a weak
-negative correlation ($r = -0.19$). This suggests that a high proportion
+negative correlation ($r = -0.18$). This suggests that a high proportion
 of low-traffic residential streets does not automatically lead to high
 cycling levels. In many cases, cities with very high percentages of “low
 stress” streets are lower-density urban areas where these streets lack
@@ -123,7 +144,7 @@ to make cycling a viable transport option across the city.
 The analysis reveals a clear hierarchy in the relationship between
 infrastructure types and cycling levels. **Segregated tracks**
 demonstrate the strongest positive correlation with cycling mode share
-($R^2 \approx 0.39$), supporting the hypothesis that physical separation
+($R^2 \approx 0.42$), supporting the hypothesis that physical separation
 from motor traffic is the single most important infrastructure feature
 enabling higher cycling levels.
 
@@ -141,7 +162,7 @@ in cycling.
 
 ### Limitations
 
-- **Data Completeness:** Data retrieval was successful for 66 out of 69
+- **Data Completeness:** Data retrieval was successful for 69 out of 69
   cities. Some cities (particularly in France and Spain) are missing due
   to data provider issues.
 - **OSM Quality:** The analysis relies on OpenStreetMap data
