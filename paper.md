@@ -11,72 +11,51 @@
 
 ## Data and methods
 
-- Cycling infrastructure from OSM, `osmactive` R package. We classified
-  infrastructure into distinct categories using the
-  `classify_cycle_infrastructure` function, which considers OSM tags
-  (e.g., `highway`, `cycleway`, `segregated`) and geometry (e.g.,
-  distance to the nearest road) to distinguish between:
+### Data sources
 
-  - **Segregated tracks:** Physically separated from motor traffic
-    (further split into wide $\ge$ 2m and narrow \< 2m).
-  - **Off-road paths:** Paths away from the road network (e.g., through
-    parks).
-  - **Painted lanes:** Marked lanes on the carriageway without physical
-    separation.
-  - **Shared footways:** Paths shared with pedestrians.
-  - **Mixed traffic:** Cycling on the carriageway with motor traffic
-    (not counted as dedicated infrastructure).
+We combine three data sources: (i) survey-based cycling use, (ii) city
+boundaries, and (iii) cycling infrastructure from OSM.
 
-- Cycling use from [the EU Quality of Life
-  Survey](https://ec.europa.eu/regional_policy/information-sources/maps/quality-of-life_en).
-  83 cities, ≈ 70,000 respondents; includes a transport question (“On a
-  typical day, which mode(s) of transport do you use most often?” ),
-  where cycling is one of the selectable modes (up to two choices
-  allowed), providing a simple city-level proxy for cycling use. There
-  are previous editions.
+#### Cycling use
 
-- **Standardized City Boundaries:** To ensure comparability, we explored
-  using standardized urban boundaries. While administrative boundaries
-  (retrieved from OpenStreetMap) are often inconsistent in geographic
-  extent, methodologies such as the Degree of Urbanisation (DEGURBA),
-  implemented in R packages like `flexurba` and `giscoR`, provide a way
-  to define cities based on population density thresholds (e.g., Urban
-  Centres or Functional Urban Areas). In this preliminary analysis, we
-  use administrative boundaries but apply a clipping heuristic for very
-  large areas (\>1000 km²) and discuss future moves towards using
-  `gisco_get_urban_audit()` for FUA-level analysis.
+Cycling use is measured using the [the EU Quality of Life
+Survey](https://ec.europa.eu/regional_policy/information-sources/maps/quality-of-life_en)
+(83 cities; ≈70,000 respondents), which includes the question: “On a
+typical day, which mode(s) of transport do you use most often?” Cycling
+is one of the selectable modes (up to two choices), providing a
+city-level proxy for cycling prevalence.
 
-<!-- ### Potential cycling-use datasets -->
+#### City boundaries
 
-<!-- - **Eurostat: journeys to work by bicycle**   -->
+To ensure comparability, we explored the use of standardized urban
+boundaries. While administrative boundaries retrieved from OpenStreetMap
+can vary in geographic extent, methodologies such as the Degree of
+Urbanisation (DEGURBA), implemented in R packages like `flexurba` and
+`giscoR`, provide a way to define cities based on population density
+thresholds (e.g., Urban Centres or Functional Urban Areas). In this
+preliminary analysis, we use administrative boundaries but apply a
+clipping heuristic for very large areas (\>1000 km²), using a 25 km
+centroid buffer, and discuss future moves towards using
+`gisco_get_urban_audit()` for FUA-level analysis.
 
-<!--   Patchy coverage, many cities missing.   -->
+<!-- This is still an estimation for some cities, can we make this more robust? -->
 
-<!--   https://ec.europa.eu/eurostat/databrowser/view/urb_ctran__custom_18909106/default/table -->
+#### Cycling infrastructure
 
-<!-- - **Bicycle counter data (Kraus and Koch, PNAS)**   -->
+Cycling infrastructure data were extracted from OpenStreetMap, using the
+`osmactive` R package. We classified infrastructure into distinct
+categories using the `classify_cycle_infrastructure` function, which
+considers OSM tags (e.g., `highway`, `cycleway`, `segregated`) and
+geometry (e.g., distance to the nearest road) to distinguish between: -
+**Segregated tracks:** Physically separated from motor traffic (further
+split into wide $\ge$ 2m and narrow \< 2m). - **Off-road paths:** Paths
+away from the road network (e.g., through parks). - **Painted lanes:**
+Marked lanes on the carriageway without physical separation. - **Shared
+footways:** Paths shared with pedestrians. - **Mixed traffic:** Cycling
+on the carriageway with motor traffic (not counted as dedicated
+infrastructure).
 
-<!--   Only for cities with counters.   -->
-
-<!--   https://www.pnas.org/doi/10.1073/pnas.2024399118   -->
-
-<!--   Data: https://zenodo.org/records/4015974 -->
-
-<!-- - **Cycling mode share in 864 European cities (Sobral et al.)**   -->
-
-<!--   Interesting working project, modelled values.   -->
-
-<!--   https://www.cyclingandsociety.org/wp-content/uploads/2025/09/CyclingAndSociety2025-4-Sobral.pdf -->
-
-<!-- - **Quality of Life in European Cities survey (DG REGIO)**   -->
-
-<!--   83 cities, >70,000 respondents; includes question   -->
-
-<!--   “On a typical day, which mode(s) do you use most often? Bicycle”.   -->
-
-<!--   https://ec.europa.eu/regional_policy/information-sources/maps/quality-of-life_en -->
-
-<!-- *the QoL survey seems to provide the most consistent city-level cycling-use indicator across many cities. IS 83 sample enough?* -->
+## Results
 
 <div id="tbl-qol-cities">
 
@@ -96,13 +75,9 @@ Table 1: Top 3, bottom 3 and 3 random middle cities by cycling levels
 | Serbia         | Beograd   | 6.1%      |         865 |
 | Italy          | Roma      | 5.4%      |         855 |
 
-Top 3, bottom 3 and 3 random middle cities by cycling levels
-
 </div>
 
 </div>
-
-## Results
 
 <div id="fig-scatter-plot">
 
@@ -138,10 +113,10 @@ and cycling mode share.
 
 </div>
 
-Segregated tracks show a strong correlation of $R^2 =$ 0.38.
+Segregated tracks show a strong correlation of $R^2 =$ 0.43.
 
 Surprisingly, the **Low Stress (High/Med LoS)** network shows a weak
-negative correlation ($r = -0.15$). This suggests that a high proportion
+negative correlation ($r = -0.13$). This suggests that a high proportion
 of low-traffic residential streets does not automatically lead to high
 cycling levels. In many cases, cities with very high percentages of “low
 stress” streets are lower-density urban areas where these streets lack
@@ -153,7 +128,7 @@ to make cycling a viable transport option across the city.
 The analysis reveals a clear hierarchy in the relationship between
 infrastructure types and cycling levels. **Segregated tracks**
 demonstrate the strongest positive correlation with cycling mode share
-($R^2 \approx 0.38$), supporting the hypothesis that physical separation
+($R^2 \approx 0.43$), supporting the hypothesis that physical separation
 from motor traffic is the single most important infrastructure feature
 enabling higher cycling levels.
 
@@ -171,7 +146,8 @@ in cycling.
 
 ### Limitations
 
-- **Data Completeness:** Data retrieval was successful for 82 out of 83
+- **Data Completeness:** Data retrieval was successful for
+  `r`sum(!is.na(qol_city_metrics\[\[“total_road_km”\]\]))\` out of 83
   cities. Some cities (particularly in France and Spain) are missing due
   to data provider issues.
 - **OSM Quality:** The analysis relies on OpenStreetMap data
