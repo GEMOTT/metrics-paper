@@ -23,10 +23,18 @@ qol_q5 <- qol_factor |>
     bike_sample  = sum(w1[Q5_1 == "Bicycle" | Q5_2 == "Bicycle"], na.rm = TRUE), # weighted cyclists
     total_sample = sum(w1, na.rm = TRUE),                                        # weighted total
     bike_prop    = bike_sample / total_sample,                                   # weighted share
-  .groups = "drop"                                                               # drop grouping after summarise (avoids surprises later)
+    .groups = "drop"                                                             # drop grouping after summarise (avoids surprises later)
   ) |>
-  mutate(
-    country   = as.character(country),   # standardise join keys (CSV/readr will give character)
-    city_name = as.character(city_name)  # standardise join keys
+   mutate(
+    # Rename "Tyneside conurbation" to "Tyneside" to ensure OSM/Nominatim boundary lookup works
+    # (the conurbation label from the QoL dataset is not recognised by getbb())
+    city_name = if_else(
+      country == "United Kingdom" & city_name == "Tyneside conurbation",
+      "Tyneside",
+      city_name
+    )
   ) |>
-  arrange(desc(bike_prop))              # rank cities by cycling-use proxy
+  arrange(desc(bike_prop))
+
+
+qol_q5 |> dplyr::filter(country == "United Kingdom", city_name %in% c("Tyneside", "Tyneside conurbation"))

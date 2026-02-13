@@ -36,7 +36,13 @@ if (file.exists("outputs/city_lengths_all.csv")) {
 # Check for high_los_km to ensure we have the latest metrics
 if ("high_los_km" %in% names(city_lengths_all)) {
   cities_done <- city_lengths_all |>
-    filter(!is.na(high_los_km)) |>
+    mutate(
+      safe_city    = gsub("[^A-Za-z0-9]", "_", city_name),
+      safe_country = gsub("[^A-Za-z0-9]", "_", country),
+      osm_path   = file.path("data/cache/osm_cache", paste0("osm_", safe_country, "_", safe_city, ".rds")),
+      cycle_path = file.path("data/cache/osm_cache", paste0("cycle_", safe_country, "_", safe_city, ".rds"))
+    ) |>
+    filter(!is.na(high_los_km) & file.exists(osm_path) & file.exists(cycle_path)) |>
     select(country, city_name)
 } else {
   cities_done <- tibble(country = character(), city_name = character())
@@ -83,7 +89,7 @@ if (nrow(cities_todo) > 0) {
 } else {
   message("No new cities to process. All done.")
 }
-city_lengths_all
+
 
 # test-classification
 # # Test the classification logic on a small country/city (Monaco)

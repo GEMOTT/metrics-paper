@@ -17,20 +17,17 @@ plot_data_long <- plot_data |>
     off_road_km,
     segregated_km,
     painted_km,
-    shared_footway_km,
-    high_los_km,
-    high_medium_los_km = high_los_km + painted_km
-  ) |>
+    shared_footway_km) |>
   pivot_longer(
-    cols = c(off_road_km, segregated_km, painted_km, shared_footway_km, high_los_km, high_medium_los_km),
+    cols = c(off_road_km, segregated_km, painted_km, shared_footway_km),
     names_to = "infra_type",
     values_to = "km"
   ) |>
   mutate(
     pct_network = (km / total_road_km) * 100,
     infra_type_label = factor(infra_type, 
-                              levels = c("segregated_km", "off_road_km", "painted_km", "shared_footway_km", "high_los_km", "high_medium_los_km"),
-                              labels = c("Segregated tracks", "Off-road paths", "Painted lanes", "Shared footways", "High LoS (Very Safe)", "Low Stress (High/Med LoS)")
+                              levels = c("segregated_km", "off_road_km", "painted_km", "shared_footway_km"),
+                              labels = c("Segregated tracks", "Off-road paths", "Painted lanes", "Shared footways")
     )
   )
 
@@ -88,7 +85,7 @@ scatter_plot <- ggplot(
   labs(
     x = "Infrastructure (% of total road network)",
     y = "Cycling mode share (%)",
-    colour = "region",
+    colour = "Region",
     title  = "Cycling levels vs. Infrastructure Composition"
   ) +
   theme_minimal(base_size = 11) +
