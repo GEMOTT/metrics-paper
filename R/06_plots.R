@@ -1,6 +1,6 @@
 # R/06_figures.R: Plots and visualisations
 
-plot_data <- qol_city_metrics |>
+plot_data <- final_city_model_data |>
   mutate(
     segregated_km = segregated_wide_km + segregated_narrow_km
   )
